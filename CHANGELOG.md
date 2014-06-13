@@ -1,3 +1,8 @@
+0.2.1
+-----
+
+- [Chris Aumann] - Fix an issue with directory permissions when using `/dev/null` as logfile
+
 0.2.0
 -----
 
