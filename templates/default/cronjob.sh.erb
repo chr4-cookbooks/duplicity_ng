@@ -3,6 +3,10 @@
 # This file is maintained by Chef for <%= node['fqdn'] %>.
 # Local changes will be overwritten.
 
+# Exit on error
+set -o nounset
+set -o errexit
+
 # Create archive/temp directories
 mkdir -p <%= @temp_dir %> >> <%= @logfile %> 2>&1
 mkdir -p <%= @archive_dir %> >> <%= @logfile %> 2>&1
