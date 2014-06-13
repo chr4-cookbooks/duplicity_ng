@@ -1,0 +1,57 @@
+#!/bin/bash
+#
+# This file is maintained by Chef for <%= node['fqdn'] %>.
+# Local changes will be overwritten.
+
+# Create archive/temp directories
+mkdir -p <%= @temp_dir %> >> <%= @logfile %> 2>&1
+mkdir -p <%= @archive_dir %> >> <%= @logfile %> 2>&1
+
+<% Array(@exec_pre).each do |cmd| %>
+<%= cmd %>
+<% end -%>
+
+# The duplicity password
+export PASSPHRASE=<%= @passphrase %>
+
+# Settings for Swift backend
+export SWIFT_USERNAME="<%= @swift_username %>"
+export SWIFT_PASSWORD="<%= @swift_password %>"
+export SWIFT_AUTHURL="<%= @swift_authurl %>"
+
+# Settings for S3
+export AWS_ACCESS_KEY_ID="<%= @aws_access_key_id %>"
+export AWS_SECRET_ACCESS_KEY="<%= @aws_secret_access_key %>"
+
+# Remove old backups
+nice -n <%= @nice %> ionice -c <%= @ionice %> \
+  duplicity remove-all-but-n-full <%= @keep_full %> \
+  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> >> <%= @logfile %> 2>&1
+
+# Clean up
+nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity cleanup \
+  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> >> <%= @logfile %> 2>&1
+
+<% Array(@exec_before).each do |cmd| %>
+<%= cmd %>
+<% end -%>
+
+# Backup selected directories
+time nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity \
+  --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> \
+  --full-if-older-than <%= @full_backup_if_older_than %> \
+  --exclude-device-files / \
+<% Array(@exclude).each do |dir| %>
+  --exclude <%= dir %> \
+<% end -%>
+<% Array(@include).each do |dir| %>
+  --include <%= dir %> \
+<% end -%>
+  --exclude '**' \
+  <%= @backend %> &> <%= @logfile %>
+
+unset PASSPHRASE
+
+<% Array(@exec_after).each do |cmd| %>
+<%= cmd %>
+<% end -%>
