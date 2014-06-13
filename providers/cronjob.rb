@@ -26,7 +26,7 @@ action :create do
   package 'python-boto' if new_resource.backend =~ /^s3/
 
   directory ::File.dirname(new_resource.logfile) do
-    mode '0750'
+    mode 00755
   end
 
   template "/etc/cron.#{new_resource.interval}/duplicity-#{new_resource.name}" do
