@@ -23,6 +23,7 @@ action :create do
   package 'duplicity'
   package 'ncftp' if new_resource.backend.include?('ftp://')
   package 'python-swiftclient' if new_resource.backend.include?('swift://')
+  package 'python-boto' if new_resource.backend =~ /^s3/
 
   directory ::File.dirname(new_resource.logfile) do
     mode '0750'
