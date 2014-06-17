@@ -1,3 +1,9 @@
+0.2.2
+-----
+
+- [Chris Aumann] - Fix issue with properly detecting S3 backend
+  - When specifying additional arguments in front of the s3:// backend, backend dependencies weren't properly detected
+
 0.2.1
 -----
 
