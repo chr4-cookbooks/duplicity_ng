@@ -30,18 +30,18 @@ export AWS_SECRET_ACCESS_KEY="<%= @aws_secret_access_key %>"
 # Remove old backups
 nice -n <%= @nice %> ionice -c <%= @ionice %> \
   duplicity remove-all-but-n-full <%= @keep_full %> \
-  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> >> <%= @logfile %> 2>&1
+  --force <%= @aws_eu %> --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> >> <%= @logfile %> 2>&1
 
 # Clean up
 nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity cleanup \
-  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> >> <%= @logfile %> 2>&1
+  --force <%= @aws_eu %> --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> >> <%= @logfile %> 2>&1
 
 <% Array(@exec_before).each do |cmd| %>
 <%= cmd %>
 <% end -%>
 
 # Backup selected directories
-time nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity \
+time nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity <%= @aws_eu %> \
   --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> \
   --full-if-older-than <%= @full_backup_if_older_than %> \
   --exclude-device-files / \
@@ -52,7 +52,7 @@ time nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity \
   --include <%= dir %> \
 <% end -%>
   --exclude '**' \
-  <%= @backend %> &> <%= @logfile %>
+  <%= @backend %> &> <%= @logfile %> \
 
 unset PASSPHRASE
 
