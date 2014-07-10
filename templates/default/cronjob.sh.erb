@@ -52,7 +52,7 @@ time nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity <%= @aws_eu %> \
   --include <%= dir %> \
 <% end -%>
   --exclude '**' \
-  <%= @backend %> &> <%= @logfile %> \
+  <%= @backend %> &> <%= @logfile %>
 
 unset PASSPHRASE
 
