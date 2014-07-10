@@ -30,7 +30,7 @@ action :create do
       end
       rpm_package "duplicity" do
         source "#{Chef::Config[:file_cache_path]}/duplicity_latest.rpm"
-        action :install
+        action :upgrade
       end
     else
       package 'duplicity'
