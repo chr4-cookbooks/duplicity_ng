@@ -63,6 +63,7 @@ duplicity_ng_cronjob 'myduplicity' do
   # In case you use S3 as your backend, your credentials go here
   aws_access_key_id     'MY_ACCESS_ID'
   aws_secret_access_key 'MY_SECRET'
+  aws_eu false
 
   # Alternatively, you can specify your own template to use
   cookbook         'duplicity_ng'          # Cookbook to take erb template from
