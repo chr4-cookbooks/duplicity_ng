@@ -20,7 +20,24 @@
 
 action :create do
   # Install duplicity, and backend-specific packages
-  package 'duplicity'
+  case node['platform']
+  when "redhat", "centos", "amazon", "oracle"
+    if node['duplicity_ng']['install_method'].include? "source"
+      remote_file "#{Chef::Config[:file_cache_path]}/duplicity_latest.rpm" do
+        source node['duplicity_ng']['rpm']['url']
+        checksum node['duplicity_ng']['rpm']['checksum']
+        action :create
+      end
+      rpm_package "duplicity" do
+        source "#{Chef::Config[:file_cache_path]}/duplicity_latest.rpm"
+        action :install
+      end
+    else
+      package 'duplicity'
+    end
+  when "debian", "ubuntu"
+    package 'duplicity'
+  end
   package 'ncftp' if new_resource.backend.include?('ftp://')
   package 'python-swiftclient' if new_resource.backend.include?('swift://')
   package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
