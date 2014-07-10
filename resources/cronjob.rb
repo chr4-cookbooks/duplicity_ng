@@ -50,6 +50,7 @@ attribute :swift_authurl,  kind_of: String, default: nil
 # S3 backend parameters
 attribute :aws_access_key_id,     kind_of: String, default: nil
 attribute :aws_secret_access_key, kind_of: String, default: nil
+attribute :aws_eu, kind_of: [TrueClass, FalseClass], default: false 
 
 # Shell scripts that will be appended at the beginning/end of the cronjob
 attribute :exec_pre,    kind_of: [String, Array], default: []
