@@ -33,7 +33,7 @@ action :create do
         code <<-EOH
           tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz
           cd duplicity-#{node['duplicity_ng']['source']['version']}
-          python setup install
+          python setup.py install
         EOH
         not_if do ::FileTest.exists?(new_resource.duplicity_path) end
       end
