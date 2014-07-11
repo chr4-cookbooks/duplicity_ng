@@ -22,6 +22,7 @@ action :create do
   # Install duplicity, and backend-specific packages
   case node['platform']
   when "redhat", "centos", "amazon", "oracle"
+    package "librsync-devel"
     if node['duplicity_ng']['install_method'].include? "source"
       remote_file "#{Chef::Config[:file_cache_path]}/duplicity_latest.rpm" do
         source node['duplicity_ng']['rpm']['url']
