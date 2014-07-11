@@ -28,6 +28,13 @@ action :create do
        package 'python-swiftclient' if new_resource.backend.include?('swift://')
      else
        python_pip "lockfile"
+       python_pip "GnuPGInterface"
+       python_pip "paramiko"
+       python_pip "pycrypto"
+       python_pip "pycurl"
+       python_pip "pygpgme"
+       python_pip "pyinotify"
+       python_pip "urlgrabber"
        python_pip 'swiftclient' if new_resource.backend.include?('swift://')
        python_bin = node["python"]["binary"]
      end
