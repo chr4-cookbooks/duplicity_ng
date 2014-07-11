@@ -35,6 +35,7 @@ duplicity_ng_cronjob 'myduplicity' do
 
   # duplicity parameters
   backend    'ftp://server.com/folder' # Backend to use (default: nil, required!)
+  
   passphrase 'supersecret'             # duplicity passphrase (default: nil, required!)
 
   include        %w(/etc/ /root/ /var/log/) # Default directories to backup
@@ -63,7 +64,6 @@ duplicity_ng_cronjob 'myduplicity' do
   # In case you use S3 as your backend, your credentials go here
   aws_access_key_id     'MY_ACCESS_ID'
   aws_secret_access_key 'MY_SECRET'
-  aws_eu false
 
   # Alternatively, you can specify your own template to use
   cookbook         'duplicity_ng'          # Cookbook to take erb template from
@@ -72,6 +72,12 @@ duplicity_ng_cronjob 'myduplicity' do
 end
 ```
 
+S3 Europe bucket style for `backend` in duplicity cronjob
+
+```ruby
+  backend    '--s3-use-new-style --s3-european-buckets s3://server.com/bucket[/prefix]' # S3 EU bucket
+  backend    '--s3-use-new-style --s3-european-buckets s3+http://bucket[/prefix]' # S3 EU bucket
+```
 
 ## Contributing
 
