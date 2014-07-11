@@ -36,25 +36,24 @@ action :create do
           python setup install
         EOH
         not_if do ::FileTest.exists?(new_resource.duplicity_path) end
-        
-           git "clone_boto"  do
-             destination "#{Chef::Config[:file_cache_path]}/boto"
-             repository "git://github.com/boto/boto.git"
-             reference "master"
-             action :sync
-             notifies :run, "bash[install_boto]", :immediately
-           end
-          
-           bash "install_boto" do
-             cwd "#{Chef::Config[:file_cache_path]}/boto"
-             code <<-EOH
-               python setup.py install
-             EOH
-             action :nothing
-             only_if do new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') end
-          end
-        
       end
+      git "clone_boto"  do
+         destination "#{Chef::Config[:file_cache_path]}/boto"
+         repository "git://github.com/boto/boto.git"
+         reference "master"
+         action :sync
+         notifies :run, "bash[install_boto]", :immediately
+       end
+      
+       bash "install_boto" do
+         cwd "#{Chef::Config[:file_cache_path]}/boto"
+         code <<-EOH
+           python setup.py install
+         EOH
+         action :nothing
+         only_if do new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') end
+       end
+        
     else
       package 'duplicity'
       package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
