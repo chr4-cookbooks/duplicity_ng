@@ -35,7 +35,7 @@ action :create do
           cd duplicity-#{node['duplicity_ng']['source']['version']}
           python setup install
         EOH
-        not_if FileTest.exists?(new_resource.duplicity_path)
+        not_if do ::FileTest.exists?(new_resource.duplicity_path) end
       end
     else
       package 'duplicity'
