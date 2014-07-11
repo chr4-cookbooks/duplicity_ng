@@ -35,7 +35,6 @@ duplicity_ng_cronjob 'myduplicity' do
 
   # duplicity parameters
   backend    'ftp://server.com/folder' # Backend to use (default: nil, required!)
-  
   passphrase 'supersecret'             # duplicity passphrase (default: nil, required!)
 
   include        %w(/etc/ /root/ /var/log/) # Default directories to backup
