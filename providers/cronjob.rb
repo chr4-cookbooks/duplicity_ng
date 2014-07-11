@@ -25,8 +25,10 @@ action :create do
      package "librsync-devel"
      if node['recipes'].include?("python::default")
        package "python-lockfile"
+       package 'python-swiftclient' if new_resource.backend.include?('swift://')
      else
        python_pip "lockfile"
+       python_pip 'swiftclient' if new_resource.backend.include?('swift://')
        python_bin = node["python"]["binary"]
      end
       remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
@@ -63,9 +65,9 @@ action :create do
     else
       package 'duplicity'
       package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
+      package 'python-swiftclient' if new_resource.backend.include?('swift://')
     end
   package 'ncftp' if new_resource.backend.include?('ftp://')
-  package 'python-swiftclient' if new_resource.backend.include?('swift://')
 
   directory ::File.dirname(new_resource.logfile) do
     mode 00755
