@@ -21,8 +21,14 @@
 action :create do
   # Install duplicity, and backend-specific packages
    if node['duplicity_ng']['install_method'].include? "source"
+     python_bin = "python"
      package "librsync-devel"
-     package "python-lockfile"
+     if node['recipes'].include?("python::default")
+       package "python-lockfile"
+     else
+       python_pip "lockfile"
+       python_bin = node["python"]["binary"]
+     end
       remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
         source node['duplicity_ng']['source']['url']
         checksum node['duplicity_ng']['source']['checksum']
@@ -33,7 +39,7 @@ action :create do
         code <<-EOH
           tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz
           cd duplicity-#{node['duplicity_ng']['source']['version']}
-          python setup.py install
+          #{python_bin} setup.py install
         EOH
         not_if do ::FileTest.exists?(new_resource.duplicity_path) end
       end
@@ -48,7 +54,7 @@ action :create do
        bash "install_boto" do
          cwd "#{Chef::Config[:file_cache_path]}/boto"
          code <<-EOH
-           python setup.py install
+           #{python_bin} setup.py install
          EOH
          action :nothing
          only_if do new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') end
