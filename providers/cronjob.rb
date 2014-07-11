@@ -20,25 +20,26 @@
 
 action :create do
   # Install duplicity, and backend-specific packages
-  case node['platform']
-  when "redhat", "centos", "amazon", "oracle"
-    package "librsync-devel"
-    if node['duplicity_ng']['install_method'].include? "source"
-      remote_file "#{Chef::Config[:file_cache_path]}/duplicity_latest.rpm" do
-        source node['duplicity_ng']['rpm']['url']
-        checksum node['duplicity_ng']['rpm']['checksum']
+   if node['duplicity_ng']['install_method'].include? "source"
+     package "librsync-devel"
+     package "python-lockfile"
+      remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
+        source node['duplicity_ng']['source']['url']
+        checksum node['duplicity_ng']['source']['checksum']
         action :create
       end
-      rpm_package "duplicity" do
-        source "#{Chef::Config[:file_cache_path]}/duplicity_latest.rpm"
-        action :upgrade
+      bash "compile_duplicity_from_source" do
+        cwd Chef::Config[:file_cache_path]
+        code <<-EOH
+          tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz
+          cd duplicity-#{node['duplicity_ng']['source']['version']}
+          python setup install
+        EOH
+        not_if FileTest.exists?(new_resource.duplicity_path)
       end
     else
       package 'duplicity'
     end
-  when "debian", "ubuntu"
-    package 'duplicity'
-  end
   package 'ncftp' if new_resource.backend.include?('ftp://')
   package 'python-swiftclient' if new_resource.backend.include?('swift://')
   package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
