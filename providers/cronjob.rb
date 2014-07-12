@@ -19,11 +19,24 @@
 #
 
 action :create do
-  # Install duplicity, and backend-specific packages
-  package 'duplicity'
-  package 'ncftp' if new_resource.backend.include?('ftp://')
-  package 'python-swiftclient' if new_resource.backend.include?('swift://')
-  package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
+
+  # Check for dependencies
+
+  unless node['recipes'].include?("duplicity_ng::install")
+    include "duplicity_ng::install"
+  end
+
+  if (new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')) and !node['recipes'].include?("duplicity_ng::install_boto")
+    include "duplicity_ng::install_boto"
+  end
+
+  if new_resource.backend.include?('ftp://') and !node['recipes'].include?("duplicity_ng::install_ftp")
+    include "duplicity_ng::install_ftp"
+  end
+
+  if new_resource.backend.include?('swift://') and !node['recipes'].include?("duplicity_ng::install_swift")
+    include "duplicity_ng::install_swift"
+  end
 
   directory ::File.dirname(new_resource.logfile) do
     mode 00755
@@ -51,6 +64,8 @@ action :create do
                 swift_authurl: new_resource.swift_authurl,
                 aws_access_key_id: new_resource.aws_access_key_id,
                 aws_secret_access_key: new_resource.aws_secret_access_key,
+                gs_access_key_id: new_resource.gs_access_key_id,
+                gs_secret_access_key: new_resource.gs_secret_access_key,
                 exec_pre: new_resource.exec_pre,
                 exec_before: new_resource.exec_before,
                 exec_after: new_resource.exec_after
