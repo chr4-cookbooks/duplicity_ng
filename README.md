@@ -71,6 +71,12 @@ duplicity_ng_cronjob 'myduplicity' do
 end
 ```
 
+S3 Europe bucket style for `backend` in duplicity cronjob
+
+```ruby
+  backend    '--s3-use-new-style --s3-european-buckets s3://server.com/bucket[/prefix]' # S3 EU bucket
+  backend    '--s3-use-new-style --s3-european-buckets s3+http://bucket[/prefix]' # S3 EU bucket
+```
 
 ## Contributing
 

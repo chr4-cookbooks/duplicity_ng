@@ -20,10 +20,47 @@
 
 action :create do
   # Install duplicity, and backend-specific packages
-  package 'duplicity'
+   if node['duplicity_ng']['install_method'].include? "source"
+     python_bin = "python"
+     package "librsync-devel"
+     if Chef::Provider.const_defined?("PythonPip")
+       python_pip "lockfile"
+       python_pip "GnuPGInterface" do
+         package_name node['duplicity_ng']['source']['gnupg']["url"]
+         action :install
+       end
+       python_pip "paramiko"
+       python_pip "boto" if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') || new_resource.backend.include?('gs://')
+       python_pip 'swiftclient' if new_resource.backend.include?('swift://')
+       python_bin = node["python"]["binary"]
+     else
+       package "python-devel"
+       package "python-lockfile"
+       package "python-GnuPGInterface"
+       package "python-paramiko"
+       package "python-boto" if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') || new_resource.backend.include?('gs://')
+       package 'python-swiftclient' if new_resource.backend.include?('swift://')
+     end
+      remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
+        source node['duplicity_ng']['source']['url']
+        checksum node['duplicity_ng']['source']['checksum']
+        action :create
+      end
+      bash "compile_duplicity_from_source" do
+        cwd Chef::Config[:file_cache_path]
+        code <<-EOH
+          tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz
+          cd duplicity-#{node['duplicity_ng']['source']['version']}
+          #{python_bin} setup.py install
+        EOH
+        not_if do ::FileTest.exists?(new_resource.duplicity_path) end
+      end
+    else
+      package 'duplicity'
+      package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') || new_resource.backend.include?('gs://')
+      package 'python-swiftclient' if new_resource.backend.include?('swift://')
+    end
   package 'ncftp' if new_resource.backend.include?('ftp://')
-  package 'python-swiftclient' if new_resource.backend.include?('swift://')
-  package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
 
   directory ::File.dirname(new_resource.logfile) do
     mode 00755
@@ -51,6 +88,8 @@ action :create do
                 swift_authurl: new_resource.swift_authurl,
                 aws_access_key_id: new_resource.aws_access_key_id,
                 aws_secret_access_key: new_resource.aws_secret_access_key,
+                gs_access_key_id: new_resource.gs_access_key_id,
+                gs_secret_access_key: new_resource.gs_secret_access_key,
                 exec_pre: new_resource.exec_pre,
                 exec_before: new_resource.exec_before,
                 exec_after: new_resource.exec_after
