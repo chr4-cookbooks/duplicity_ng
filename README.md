@@ -107,6 +107,44 @@ duplicity_ng_boto 'mybotoconfig' do
 end  
 ```
 
+### Recipes
+
+default
+-------
+
+Blank recipe
+
+
+install
+-------
+
+Installs main packages
+
+
+install_swift
+-------------
+
+Installs `python-swiftclient` package
+
+
+install_boto
+------------
+
+Installs python `boto` package
+
+
+install_ftp
+------------
+
+Installs `ncftp` package
+
+
+install_ppa
+-----------
+
+Ubuntu repositories with latest version of `duplicity`.
+
+
 ## Contributing
 
 1. Fork the repository on Github
