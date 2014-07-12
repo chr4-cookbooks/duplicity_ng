@@ -6,7 +6,7 @@ Cookbook for installing [duplicity](http://duplicity.nongnu.org/) backup cronjob
 
 All platforms with a duplicity package available, and support for `/etc/cron.*/` directories.
 
-Tested on Ubuntu.
+Tested on Ubuntu, CentOS.
 
 
 ## Usage
@@ -70,7 +70,6 @@ duplicity_ng_cronjob 'myduplicity' do
   variables        {}                   # Custom variables for ERB template
 end
 ```
-
 
 ## Contributing
 
