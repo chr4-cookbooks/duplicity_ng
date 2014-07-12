@@ -51,10 +51,6 @@ attribute :swift_authurl,  kind_of: String, default: nil
 attribute :aws_access_key_id,     kind_of: String, default: nil
 attribute :aws_secret_access_key, kind_of: String, default: nil
 
-# Google Cloud Storage backend parameters
-attribute :gs_access_key_id,     kind_of: String, default: nil
-attribute :gs_secret_access_key, kind_of: String, default: nil
-
 # Shell scripts that will be appended at the beginning/end of the cronjob
 attribute :exec_pre,    kind_of: [String, Array], default: []
 attribute :exec_before, kind_of: [String, Array], default: []
