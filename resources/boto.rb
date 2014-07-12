@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: duplicity_ng
-# Resource:: cronjob
+# Resource:: boto
 #
 # Copyright (C) 2014 Chris Aumann
 #
