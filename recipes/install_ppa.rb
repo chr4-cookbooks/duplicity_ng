@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: duplicity_ng
-# Recipe:: ppa
+# Recipe:: install_ppa
 #
 # Copyright (C) 2014 Chris Aumann
 #

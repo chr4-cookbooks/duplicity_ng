@@ -19,48 +19,24 @@
 #
 
 action :create do
-  # Install duplicity, and backend-specific packages
-   if node['duplicity_ng']['install_method'].include? "source"
-     python_bin = "python"
-     package "librsync-devel"
-     if Chef::Provider.const_defined?("PythonPip")
-       python_pip "lockfile"
-       python_pip "GnuPGInterface" do
-         package_name node['duplicity_ng']['source']['gnupg']["url"]
-         action :install
-       end
-       python_pip "paramiko"
-       python_pip "boto" if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') || new_resource.backend.include?('gs://')
-       python_pip 'swiftclient' if new_resource.backend.include?('swift://')
-       python_bin = node["python"]["binary"]
-     else
-       package "python-devel"
-       package "python-lockfile"
-       package "python-GnuPGInterface"
-       package "python-paramiko"
-       package "python-boto" if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') || new_resource.backend.include?('gs://')
-       package 'python-swiftclient' if new_resource.backend.include?('swift://')
-     end
-      remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
-        source node['duplicity_ng']['source']['url']
-        checksum node['duplicity_ng']['source']['checksum']
-        action :create
-      end
-      bash "compile_duplicity_from_source" do
-        cwd Chef::Config[:file_cache_path]
-        code <<-EOH
-          tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz
-          cd duplicity-#{node['duplicity_ng']['source']['version']}
-          #{python_bin} setup.py install
-        EOH
-        not_if do ::FileTest.exists?(new_resource.duplicity_path) end
-      end
-    else
-      package 'duplicity'
-      package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') || new_resource.backend.include?('gs://')
-      package 'python-swiftclient' if new_resource.backend.include?('swift://')
-    end
-  package 'ncftp' if new_resource.backend.include?('ftp://')
+
+  # Check for dependencies
+
+  unless node['recipes'].include?("duplicity_ng::install")
+    include "duplicity_ng::install"
+  end
+
+  if (new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')) and !node['recipes'].include?("duplicity_ng::install_boto")
+    include "duplicity_ng::install_boto"
+  end
+
+  if new_resource.backend.include?('ftp://') and !node['recipes'].include?("duplicity_ng::install_ftp")
+    include "duplicity_ng::install_ftp"
+  end
+
+  if new_resource.backend.include?('swift://') and !node['recipes'].include?("duplicity_ng::install_swift")
+    include "duplicity_ng::install_swift"
+  end
 
   directory ::File.dirname(new_resource.logfile) do
     mode 00755
