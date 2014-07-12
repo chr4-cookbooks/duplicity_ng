@@ -23,7 +23,6 @@ action :create do
    if node['duplicity_ng']['install_method'].include? "source"
      python_bin = "python"
      package "librsync-devel"
-     package "python-devel"
      if node['recipes'].include?("python::default")
        python_pip "lockfile"
        python_pip "GnuPGInterface" do
@@ -35,6 +34,7 @@ action :create do
        python_pip 'swiftclient' if new_resource.backend.include?('swift://')
        python_bin = node["python"]["binary"]
      else
+       package "python-devel"
        package "python-lockfile"
        package "python-GnuPGInterface"
        package "python-paramiko"
