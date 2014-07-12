@@ -53,5 +53,5 @@ bash "compile_duplicity_from_source" do
     cd duplicity-#{node['duplicity_ng']['source']['version']}
     #{python_bin} setup.py install
   EOH
-  not_if do ::FileTest.exists?(new_resource.duplicity_path) end
+  not_if do ::FileTest.exists?(node['duplicity_ng']['bin_path']) end
 end
