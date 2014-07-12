@@ -64,8 +64,6 @@ action :create do
                 swift_authurl: new_resource.swift_authurl,
                 aws_access_key_id: new_resource.aws_access_key_id,
                 aws_secret_access_key: new_resource.aws_secret_access_key,
-                gs_access_key_id: new_resource.gs_access_key_id,
-                gs_secret_access_key: new_resource.gs_secret_access_key,
                 exec_pre: new_resource.exec_pre,
                 exec_before: new_resource.exec_before,
                 exec_after: new_resource.exec_after
