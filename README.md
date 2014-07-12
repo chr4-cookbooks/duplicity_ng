@@ -81,32 +81,6 @@ S3 Europe bucket style for `backend`
   backend    '--s3-use-new-style --s3-european-buckets s3+http://bucket[/prefix]' # S3 EU bucket
 ```
 
-#### duplicity_ng\_boto
-
-Writes boto config. With this you can skip keys in `cronjob` provider.
-
-```ruby
-duplicity_ng_boto 'mybotoconfig' do
-  # In case you use S3, your credentials go here
-  aws_access_key_id     'MY_ACCESS_ID'
-  aws_secret_access_key 'MY_SECRET'
-
-  # In case you use Google Cloud Storage, your credentials go here
-  gs_access_key_id     'MY_ACCESS_ID'
-  gs_secret_access_key 'MY_SECRET'
-
-  # In case you need additional params for Boto
-  params {
-    "debug" => 0
-  }
-
-  # Alternatively, you can specify your own template to use
-  cookbook         'duplicity_ng'          # Cookbook to take erb template from
-  source           'boto.cfg.erb'     # ERB template to use
-  variables        {}
-end  
-```
-
 ## Contributing
 
 1. Fork the repository on Github
