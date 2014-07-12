@@ -7,5 +7,5 @@ gs_secret_access_key = <%= @gs_secret_access_key %>
 
 [Boto]
 <% @params.each_pair do |k,v| %>
-<%= key %> = <%= value %>
+<%= k %> = <%= v %>
 <% end -%>
