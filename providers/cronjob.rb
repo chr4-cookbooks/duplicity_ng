@@ -23,20 +23,23 @@ action :create do
    if node['duplicity_ng']['install_method'].include? "source"
      python_bin = "python"
      package "librsync-devel"
+     package "python-devel"
      if node['recipes'].include?("python::default")
-       package "python-lockfile"
-       package 'python-swiftclient' if new_resource.backend.include?('swift://')
-     else
        python_pip "lockfile"
-       python_pip "GnuPGInterface"
+       python_pip "GnuPGInterface" do
+         package_name node['duplicity_ng']['source']['gnupg']["url"]
+         action :install
+       end
        python_pip "paramiko"
-       python_pip "pycrypto"
-       python_pip "pycurl"
-       python_pip "pygpgme"
-       python_pip "pyinotify"
-       python_pip "urlgrabber"
+       python_pip "boto" if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
        python_pip 'swiftclient' if new_resource.backend.include?('swift://')
        python_bin = node["python"]["binary"]
+     else
+       package "python-lockfile"
+       package "python-GnuPGInterface"
+       package "python-paramiko"
+       package "python-boto" if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
+       package 'python-swiftclient' if new_resource.backend.include?('swift://')
      end
       remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
         source node['duplicity_ng']['source']['url']
@@ -52,23 +55,6 @@ action :create do
         EOH
         not_if do ::FileTest.exists?(new_resource.duplicity_path) end
       end
-      git "clone_boto"  do
-         destination "#{Chef::Config[:file_cache_path]}/boto"
-         repository "git://github.com/boto/boto.git"
-         reference "master"
-         action :sync
-         notifies :run, "bash[install_boto]", :immediately
-       end
-      
-       bash "install_boto" do
-         cwd "#{Chef::Config[:file_cache_path]}/boto"
-         code <<-EOH
-           #{python_bin} setup.py install
-         EOH
-         action :nothing
-         only_if do new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') end
-       end
-        
     else
       package 'duplicity'
       package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
