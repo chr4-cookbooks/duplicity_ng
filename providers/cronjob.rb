@@ -23,7 +23,7 @@ action :create do
    if node['duplicity_ng']['install_method'].include? "source"
      python_bin = "python"
      package "librsync-devel"
-     if node['recipes'].include?("python::default")
+     if Chef::Provider.const_defined?("PythonPip")
        python_pip "lockfile"
        python_pip "GnuPGInterface" do
          package_name node['duplicity_ng']['source']['gnupg']["url"]
