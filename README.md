@@ -75,8 +75,7 @@ duplicity_ng_cronjob 'myduplicity' do
 end
 ```
 
-S3 Europe bucket style for `backend` in duplicity cronjob
-
+S3 Europe bucket style for `backend`
 ```ruby
   backend    '--s3-use-new-style --s3-european-buckets s3://server.com/bucket[/prefix]' # S3 EU bucket
   backend    '--s3-use-new-style --s3-european-buckets s3+http://bucket[/prefix]' # S3 EU bucket
@@ -84,7 +83,7 @@ S3 Europe bucket style for `backend` in duplicity cronjob
 
 #### duplicity_ng\_boto
 
-Provider for write boto config. With this you can skip keys in `cronjob` provider.
+Writes boto config. With this you can skip keys in `cronjob` provider.
 
 ```ruby
 duplicity_ng_boto 'mybotoconfig' do
