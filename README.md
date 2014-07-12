@@ -6,7 +6,7 @@ Cookbook for installing [duplicity](http://duplicity.nongnu.org/) backup cronjob
 
 All platforms with a duplicity package available, and support for `/etc/cron.*/` directories.
 
-Tested on Ubuntu.
+Tested on Ubuntu, CentOS.
 
 
 ## Usage
@@ -71,6 +71,11 @@ duplicity_ng_cronjob 'myduplicity' do
 end
 ```
 
+S3 Europe bucket style for `backend`
+```ruby
+  backend    '--s3-use-new-style --s3-european-buckets s3://server.com/bucket[/prefix]' # S3 EU bucket
+  backend    '--s3-use-new-style --s3-european-buckets s3+http://bucket[/prefix]' # S3 EU bucket
+```
 
 ## Contributing
 

@@ -34,7 +34,7 @@ nice -n <%= @nice %> ionice -c <%= @ionice %> \
 
 # Clean up
 nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity cleanup \
-  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> >> <%= @logfile %> 2>&1
+  --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> >> <%= @logfile %> 2>&1
 
 <% Array(@exec_before).each do |cmd| %>
 <%= cmd %>
