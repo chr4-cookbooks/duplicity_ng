@@ -20,8 +20,9 @@
 
 # Install duplicity, and backend-specific packages
 
-
-package "librsync-devel"
+node['duplicity_ng']['source']['dev']['packages'].each do |name|
+  package name
+end
 
 python_bin = "python"
 
@@ -34,10 +35,9 @@ if Chef::Provider.const_defined?("PythonPip")
   python_pip "paramiko"
   python_bin = node["python"]["binary"]
 else
-  package "python-devel"
-  package "python-lockfile"
-  package "python-GnuPGInterface"
-  package "python-paramiko"
+  node['duplicity_ng']['source']['python']['packages'].each do |name|
+    package name
+  end
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
