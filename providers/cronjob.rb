@@ -38,8 +38,10 @@ action :create do
     include "duplicity_ng::install_swift"
   end
 
-  directory ::File.dirname(new_resource.logfile) do
-    mode 00755
+  unless new_resource.logfile.include? "/dev/null"
+    directory ::File.dirname(new_resource.logfile) do
+      mode 00755
+    end
   end
 
   template "/etc/cron.#{new_resource.interval}/duplicity-#{new_resource.name}" do
