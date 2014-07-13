@@ -44,6 +44,7 @@ remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng'][
   source node['duplicity_ng']['source']['url']
   checksum node['duplicity_ng']['source']['checksum']
   action :create
+  notifies :run, "bash[compile_duplicity_from_source]", :immediately
 end
 
 bash "compile_duplicity_from_source" do
@@ -53,5 +54,5 @@ bash "compile_duplicity_from_source" do
     cd duplicity-#{node['duplicity_ng']['source']['version']}
     #{python_bin} setup.py install
   EOH
-  not_if do ::FileTest.exists?(node['duplicity_ng']['bin_path']) end
+  action :nothing
 end
