@@ -19,6 +19,7 @@ See the `attributes/default.rb` file for default values.
 * `node['duplicity_ng']['bin_path']` - Path to `duplicity` binary.
 * `node['duplicity_ng']['source']['checksum']` - `duplicity` remote source file checksum.
 * `node['duplicity_ng']['source']['version']` - `duplicity` version (only for "source" install method)
+* `node['duplicity_ng']['source']['gnupg']['checksum']` - `GnuPGInterface` remote source file checksum.
 * `node['duplicity_ng']['source']['gnupg']['version']` - `GnuPGInterface` version.
 
 
