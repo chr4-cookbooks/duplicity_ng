@@ -11,6 +11,44 @@ Tested on Ubuntu, CentOS.
 
 ## Usage
 
+### Attributes
+
+The following attributes are set based on the platform, see the `attributes/default.rb` file for default values.
+
+* `node['duplicity_ng']['install_method']` - Install method, can be "package" or "source" (by default "package")
+* `node['duplicity_ng']['bin_path']` - Path to `duplicity` binary.
+* `node['duplicity_ng']['source']['checksum']` - `duplicity` remote source file checksum.
+* `node['duplicity_ng']['source']['version']` - `duplicity` version (only for "source" install method)
+* `node['duplicity_ng']['source']['gnupg']['version']` - `GnuPGInterface` version.
+
+
+### Recipes
+
+#### default
+
+Blank recipe
+
+#### install
+
+Installs main packages
+
+#### install_swift
+
+Installs `python-swiftclient` package
+
+#### install_boto
+
+Installs python `boto` package
+
+#### install_ftp
+
+Installs `ncftp` package
+
+#### install_ppa
+
+Ubuntu repositories with latest version of `duplicity`.
+
+
 ### Providers
 
 To use the providers, append the following to your metadata.rb
@@ -106,44 +144,6 @@ duplicity_ng_boto 'mybotoconfig' do
   variables        {}
 end  
 ```
-
-### Recipes
-
-default
--------
-
-Blank recipe
-
-
-install
--------
-
-Installs main packages
-
-
-install_swift
--------------
-
-Installs `python-swiftclient` package
-
-
-install_boto
-------------
-
-Installs python `boto` package
-
-
-install_ftp
-------------
-
-Installs `ncftp` package
-
-
-install_ppa
------------
-
-Ubuntu repositories with latest version of `duplicity`.
-
 
 ## Contributing
 
