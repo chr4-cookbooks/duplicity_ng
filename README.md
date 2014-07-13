@@ -13,7 +13,7 @@ Tested on Ubuntu, CentOS.
 
 ### Attributes
 
-The following attributes are set based on the platform, see the `attributes/default.rb` file for default values.
+See the `attributes/default.rb` file for default values.
 
 * `node['duplicity_ng']['install_method']` - Install method, can be "package" or "source" (by default "package")
 * `node['duplicity_ng']['bin_path']` - Path to `duplicity` binary.
