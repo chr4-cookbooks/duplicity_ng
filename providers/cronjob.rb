@@ -38,7 +38,7 @@ action :create do
     include "duplicity_ng::install_swift"
   end
 
-  unless new_resource.logfile.include? "/dev/null"
+  unless new_resource.logfile.include? "/dev/null" or new_resource.logfile.include? "/var/log"
     directory ::File.dirname(new_resource.logfile) do
       mode 00755
     end
