@@ -19,14 +19,29 @@
 #
 
 action :create do
-  # Install duplicity, and backend-specific packages
-  package 'duplicity'
-  package 'ncftp' if new_resource.backend.include?('ftp://')
-  package 'python-swiftclient' if new_resource.backend.include?('swift://')
-  package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
 
-  directory ::File.dirname(new_resource.logfile) do
-    mode 00755
+  # Check for dependencies
+
+  unless node['recipes'].include?("duplicity_ng::install")
+    include "duplicity_ng::install"
+  end
+
+  if (new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')) and !node['recipes'].include?("duplicity_ng::install_boto")
+    include "duplicity_ng::install_boto"
+  end
+
+  if new_resource.backend.include?('ftp://') and !node['recipes'].include?("duplicity_ng::install_ftp")
+    include "duplicity_ng::install_ftp"
+  end
+
+  if new_resource.backend.include?('swift://') and !node['recipes'].include?("duplicity_ng::install_swift")
+    include "duplicity_ng::install_swift"
+  end
+
+  unless new_resource.logfile.include? "/dev/null" or new_resource.logfile.include? "/var/log"
+    directory ::File.dirname(new_resource.logfile) do
+      mode 00755
+    end
   end
 
   template "/etc/cron.#{new_resource.interval}/duplicity-#{new_resource.name}" do
@@ -36,6 +51,7 @@ action :create do
 
     if new_resource.variables.empty?
       variables logfile: new_resource.logfile,
+                duplicity_path: new_resource.duplicity_path || node['duplicity_ng']['bin_path'],
                 backend: new_resource.backend,
                 passphrase: new_resource.passphrase,
                 include: new_resource.include,
@@ -51,6 +67,8 @@ action :create do
                 swift_authurl: new_resource.swift_authurl,
                 aws_access_key_id: new_resource.aws_access_key_id,
                 aws_secret_access_key: new_resource.aws_secret_access_key,
+                gs_access_key_id: new_resource.gs_access_key_id,
+                gs_secret_access_key: new_resource.gs_secret_access_key,
                 exec_pre: new_resource.exec_pre,
                 exec_before: new_resource.exec_before,
                 exec_after: new_resource.exec_after

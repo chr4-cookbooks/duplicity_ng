@@ -6,10 +6,49 @@ Cookbook for installing [duplicity](http://duplicity.nongnu.org/) backup cronjob
 
 All platforms with a duplicity package available, and support for `/etc/cron.*/` directories.
 
-Tested on Ubuntu.
+Tested on Ubuntu, CentOS.
 
 
 ## Usage
+
+### Attributes
+
+See the `attributes/default.rb` file for default values.
+
+* `node['duplicity_ng']['install_method']` - Install method, can be "package" or "source" (by default "package")
+* `node['duplicity_ng']['bin_path']` - Path to `duplicity` binary.
+* `node['duplicity_ng']['source']['checksum']` - `duplicity` remote source file checksum.
+* `node['duplicity_ng']['source']['version']` - `duplicity` version (only for "source" install method)
+* `node['duplicity_ng']['source']['gnupg']['checksum']` - `GnuPGInterface` remote source file checksum.
+* `node['duplicity_ng']['source']['gnupg']['version']` - `GnuPGInterface` version.
+
+
+### Recipes
+
+#### default
+
+Blank recipe
+
+#### install
+
+Installs main packages
+
+#### install_swift
+
+Installs `python-swiftclient` package
+
+#### install_boto
+
+Installs python `boto` package
+
+#### install_ftp
+
+Installs `ncftp` package
+
+#### install_ppa
+
+Ubuntu repositories with latest version of `duplicity`.
+
 
 ### Providers
 
@@ -64,6 +103,10 @@ duplicity_ng_cronjob 'myduplicity' do
   aws_access_key_id     'MY_ACCESS_ID'
   aws_secret_access_key 'MY_SECRET'
 
+  # In case you use Google Cloud Storage as your backend, your credentials go here
+  gs_access_key_id     'MY_ACCESS_ID'
+  gs_secret_access_key 'MY_SECRET'
+
   # Alternatively, you can specify your own template to use
   cookbook         'duplicity_ng'          # Cookbook to take erb template from
   source           'cronjob.sh.erb'     # ERB template to use
@@ -71,6 +114,37 @@ duplicity_ng_cronjob 'myduplicity' do
 end
 ```
 
+S3 Europe bucket style for `backend`
+```ruby
+  backend    '--s3-use-new-style --s3-european-buckets s3://server.com/bucket[/prefix]' # S3 EU bucket
+  backend    '--s3-use-new-style --s3-european-buckets s3+http://bucket[/prefix]' # S3 EU bucket
+```
+
+#### duplicity_ng\_boto
+
+Writes boto config. With this you can skip keys in `cronjob` provider.
+
+```ruby
+duplicity_ng_boto 'mybotoconfig' do
+  # In case you use S3, your credentials go here
+  aws_access_key_id     'MY_ACCESS_ID'
+  aws_secret_access_key 'MY_SECRET'
+
+  # In case you use Google Cloud Storage, your credentials go here
+  gs_access_key_id     'MY_ACCESS_ID'
+  gs_secret_access_key 'MY_SECRET'
+
+  # In case you need additional params for Boto
+  params {
+    "debug" => 0
+  }
+
+  # Alternatively, you can specify your own template to use
+  cookbook         'duplicity_ng'          # Cookbook to take erb template from
+  source           'boto.cfg.erb'     # ERB template to use
+  variables        {}
+end  
+```
 
 ## Contributing
 

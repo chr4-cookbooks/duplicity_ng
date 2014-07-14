@@ -26,7 +26,7 @@ attribute :interval,         kind_of: String, default: 'daily'
 attribute :cookbook,         kind_of: String, default: 'duplicity_ng'
 attribute :source,           kind_of: String, default: 'cronjob.sh.erb'
 attribute :variables,        kind_of: Hash,   default: {}
-attribute :duplicity_path,   kind_of: String, default: '/usr/bin/duplicity'
+attribute :duplicity_path,   kind_of: [String, NilClass], default: nil
 attribute :configure_zabbix, kind_of: [TrueClass, FalseClass], default: false
 attribute :logfile,          kind_of: String, default: '/dev/null'
 
@@ -43,13 +43,17 @@ attribute :ionice,      kind_of: Integer, default: 3
 attribute :full_backup_if_older_than, kind_of: String, default: '7D'
 
 # Swift backend parameters
-attribute :swift_username, kind_of: String, default: nil
-attribute :swift_password, kind_of: String, default: nil
-attribute :swift_authurl,  kind_of: String, default: nil
+attribute :swift_username, kind_of: [String, NilClass], default: nil
+attribute :swift_password, kind_of: [String, NilClass], default: nil
+attribute :swift_authurl,  kind_of: [String, NilClass], default: nil
 
 # S3 backend parameters
-attribute :aws_access_key_id,     kind_of: String, default: nil
-attribute :aws_secret_access_key, kind_of: String, default: nil
+attribute :aws_access_key_id,     kind_of: [String, NilClass], default: nil
+attribute :aws_secret_access_key, kind_of: [String, NilClass], default: nil
+
+# Google Cloud Storage backend parameters
+attribute :gs_access_key_id,     kind_of: [String, NilClass], default: nil
+attribute :gs_secret_access_key, kind_of: [String, NilClass], default: nil
 
 # Shell scripts that will be appended at the beginning/end of the cronjob
 attribute :exec_pre,    kind_of: [String, Array], default: []
