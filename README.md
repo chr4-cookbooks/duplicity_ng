@@ -105,7 +105,10 @@ duplicity_ng_boto 'mybotoconfig' do
 
   # In case you need additional params for Boto
   params {
-    debug: 0
+    debug: 0,
+    num_retries: 10,
+    ec2_region_name: 'us-west-1',
+    autoscale_endpoint: 'autoscaling.us-west-1.amazonaws.com'
   }
 
   # Alternatively, you can specify your own template to use
