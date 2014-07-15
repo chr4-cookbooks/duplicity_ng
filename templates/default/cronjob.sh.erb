@@ -37,11 +37,11 @@ export GS_SECRET_ACCESS_KEY="<%= @gs_secret_access_key %>"
 
 # Remove old backups
 nice -n <%= @nice %> ionice -c <%= @ionice %> \
-  duplicity remove-all-but-n-full <%= @keep_full %> \
+  <%= @duplicity_path %> remove-all-but-n-full <%= @keep_full %> \
   --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> <%= @backend %> >> <%= @logfile %> 2>&1
 
 # Clean up
-nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity cleanup \
+nice -n <%= @nice %> ionice -c <%= @ionice %> <%= @duplicity_path %> cleanup \
   --force --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %>  <%= @backend %> >> <%= @logfile %> 2>&1
 
 <% Array(@exec_before).each do |cmd| %>
@@ -49,7 +49,7 @@ nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity cleanup \
 <% end -%>
 
 # Backup selected directories
-time nice -n <%= @nice %> ionice -c <%= @ionice %> duplicity \
+time nice -n <%= @nice %> ionice -c <%= @ionice %> <%= @duplicity_path %> \
   --archive-dir <%= @archive_dir %> --tempdir <%= @temp_dir %> \
   --full-if-older-than <%= @full_backup_if_older_than %> \
   --exclude-device-files / \

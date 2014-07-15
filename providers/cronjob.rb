@@ -50,6 +50,7 @@ action :create do
     if new_resource.variables.empty?
       variables logfile: new_resource.logfile,
                 backend: new_resource.backend,
+                duplicity_path: new_resource.duplicity_path || node['duplicity_ng']['bin_path'],
                 passphrase: new_resource.passphrase,
                 include: new_resource.include,
                 exclude: new_resource.exclude,
