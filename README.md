@@ -130,4 +130,5 @@ end
 
 ## License and Authors
 
-Author:: Chris Aumann (<me@chr4.org>)
+Author:: Chris Aumann <me@chr4.org>
+Contributors:: Alexander Merkulov <sasha@merqlove.ru>
