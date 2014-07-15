@@ -2,6 +2,7 @@
 # Cookbook Name:: duplicity_ng
 # Recipe:: install_boto
 #
+# Copyright (C) 2014 Alexander Merkulov
 # Copyright (C) 2014 Chris Aumann
 #
 # This program is free software: you can redistribute it and/or modify

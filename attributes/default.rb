@@ -1,5 +1,6 @@
 default['duplicity_ng']['install_method'] = 'package' # Can be "source" or "package"
 default['duplicity_ng']['bin_path'] = '/usr/bin/duplicity'
+default['duplicity_ng']['source']['use_pip'] = false # If true then we try to use pip
 default['duplicity_ng']['source']['checksum'] = '5d4e9329a6d793880909d18b0736ff06'
 default['duplicity_ng']['source']['version'] = '0.6.24'
 default['duplicity_ng']['source']['url'] = "https://launchpad.net/duplicity/0.6-series/#{node['duplicity_ng']['source']['version']}/+download/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz"
@@ -12,7 +13,7 @@ when 'debian'
   default['duplicity_ng']['source']['dev']['packages'] = %w( librsync-dev )
   default['duplicity_ng']['source']['python']['packages'] = %w( python-dev python-lockfile python-gnupginterface python-paramiko )
 when 'rhel', 'fedora', 'suse'
-  default['duplicity_ng']['install_method'] = 'source'
+  default['duplicity_ng']['source']['use_pip'] = true # Because here old packages
   default['duplicity_ng']['source']['dev']['packages'] = %w( librsync-devel )
   default['duplicity_ng']['source']['python']['packages'] = %w( python-devel python-lockfile python-GnuPGInterface python-paramiko )
 end

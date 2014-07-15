@@ -1,9 +1,8 @@
 #
 # Cookbook Name:: duplicity_ng
-# Recipe:: install
+# Definition:: pip_packages
 #
 # Copyright (C) 2014 Alexander Merkulov
-# Copyright (C) 2014 Chris Aumann
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,4 +18,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-include_recipe "duplicity_ng::#{node['duplicity_ng']['install_method']}"
+define :pip_packages do
+  python_pip 'lockfile'
+  gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
+  remote_file gpg_source_file do
+    source   node['duplicity_ng']['source']['gnupg']['url']
+    checksum node['duplicity_ng']['source']['gnupg']['checksum']
+    action   :create
+    notifies :install, 'python_pip[install_gnupginterface]', :immediately
+  end
+  python_pip 'install_gnupginterface' do
+    package_name gpg_source_file
+    action       :nothing
+  end
+  python_pip 'paramiko'
+end
