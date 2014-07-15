@@ -28,6 +28,7 @@ end
 python_bin = 'python'
 
 if Chef::Provider.const_defined?('PythonPip') && node['duplicity_ng']['source']['use_pip']
+  package node['duplicity_ng']['source']['python']['dev'] unless node['python']['install_method'].include? 'source'
   python_pip 'lockfile'
   gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
   remote_file gpg_source_file do
