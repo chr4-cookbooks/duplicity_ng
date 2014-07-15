@@ -29,7 +29,7 @@ action :create do
                 aws_secret_access_key: new_resource.aws_secret_access_key,
                 gs_access_key_id: new_resource.gs_access_key_id,
                 gs_secret_access_key: new_resource.gs_secret_access_key,
-                params: new_resource.params || {}
+                params: new_resource.params
     else
       variables new_resource.variables
     end
