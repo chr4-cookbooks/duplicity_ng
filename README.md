@@ -105,7 +105,7 @@ duplicity_ng_boto 'mybotoconfig' do
 
   # In case you need additional params for Boto
   params {
-    "debug" => 0
+    debug: 0
   }
 
   # Alternatively, you can specify your own template to use
