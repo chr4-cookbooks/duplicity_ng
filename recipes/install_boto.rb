@@ -22,7 +22,7 @@
 # Install Boto library
 
 if node['duplicity_ng']['install_method'].include? 'source'
-  if Chef::Provider.const_defined?('PythonPip')
+  if Chef::Provider.const_defined?('PythonPip') && node['duplicity_ng']['source']['use_pip']
     python_pip 'boto'
   else
     package 'python-boto'
