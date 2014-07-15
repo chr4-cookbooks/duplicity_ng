@@ -19,7 +19,7 @@
 #
 
 action :create do
-  template "/etc/boto.cfg" do
+  template '/etc/boto.cfg' do
     mode     '0640'
     source   new_resource.source
     cookbook new_resource.cookbook
@@ -37,7 +37,7 @@ action :create do
 end
 
 action :delete do
-  file "/etc/boto.cfg" do
+  file '/etc/boto.cfg' do
     action :delete
   end
 end
