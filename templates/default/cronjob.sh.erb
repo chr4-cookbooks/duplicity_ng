@@ -35,10 +35,6 @@ export GS_ACCESS_KEY_ID="<%= @gs_access_key_id %>"
 export GS_SECRET_ACCESS_KEY="<%= @gs_secret_access_key %>"
 <% end -%>
 
-# Settings for GOOGLE CLOUD STORAGE
-export GS_ACCESS_KEY_ID="<%= @gs_access_key_id %>"
-export GS_SECRET_ACCESS_KEY="<%= @gs_secret_access_key %>"
-
 # Remove old backups
 nice -n <%= @nice %> ionice -c <%= @ionice %> \
   <%= @duplicity_path %> remove-all-but-n-full <%= @keep_full %> \
