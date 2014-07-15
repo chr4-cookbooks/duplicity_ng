@@ -20,7 +20,7 @@
 
 action :create do
   template '/etc/boto.cfg' do
-    mode     '0640'
+    mode     00640
     source   new_resource.source
     cookbook new_resource.cookbook
 
