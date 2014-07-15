@@ -27,8 +27,20 @@ end
 
 python_bin = 'python'
 
-if Chef::Provider.const_defined?('PythonPip') && node['duplicity_ng']['source']['use_pip']
-  pip_packages
+if Chef::Provider.const_defined?('PythonPip')
+  python_pip 'lockfile'
+  gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
+  remote_file gpg_source_file do
+    source   node['duplicity_ng']['source']['gnupg']['url']
+    checksum node['duplicity_ng']['source']['gnupg']['checksum']
+    action   :create
+    notifies :install, 'python_pip[install_gnupginterface]', :immediately
+  end
+  python_pip 'install_gnupginterface' do
+    package_name gpg_source_file
+    action       :nothing
+  end
+  python_pip 'paramiko'
   python_bin = node['python']['binary']
 else
   node['duplicity_ng']['source']['python']['packages'].each do |name|
