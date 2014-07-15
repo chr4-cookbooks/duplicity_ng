@@ -19,11 +19,24 @@
 #
 
 action :create do
-  # Install duplicity, and backend-specific packages
-  package 'duplicity'
-  package 'ncftp' if new_resource.backend.include?('ftp://')
-  package 'python-swiftclient' if new_resource.backend.include?('swift://')
-  package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
+
+  # Check for dependencies
+
+  unless node['recipes'].include?("duplicity_ng::install")
+    include_recipe "duplicity_ng::install"
+  end
+
+  if (new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')) and !node['recipes'].include?("duplicity_ng::install_boto")
+    include_recipe "duplicity_ng::install_boto"
+  end
+
+  if new_resource.backend.include?('ftp://') and !node['recipes'].include?("duplicity_ng::install_ftp")
+    include_recipe "duplicity_ng::install_ftp"
+  end
+
+  if new_resource.backend.include?('swift://') and !node['recipes'].include?("duplicity_ng::install_swift")
+    include_recipe "duplicity_ng::install_swift"
+  end
 
   directory ::File.dirname(new_resource.logfile) do
     mode 00755
