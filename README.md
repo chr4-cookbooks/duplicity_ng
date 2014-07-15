@@ -19,7 +19,7 @@ To use the providers, append the following to your metadata.rb
 depends 'duplicity_ng'
 ```
 
-#### duplicity_ng\_cronjob
+#### duplicity\_ng\_cronjob
 
 Installs a duplicity cronjob
 
@@ -89,7 +89,7 @@ duplicity_ng 's3 europe' do
 end
 ```
 
-#### duplicity_ng\_boto
+#### duplicity\_ng\_boto
 
 Writes boto config. With this you can skip keys in `cronjob` provider.
 
