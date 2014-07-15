@@ -2,14 +2,69 @@
 driver:
   name: vagrant
 
-provisioner:
-  name: chef_solo
+driver_config:
+  require_chef_omnibus: true
+  use_vagrant_berkshelf_plugin: true
 
 platforms:
   - name: ubuntu-12.04
+    driver_config:
+      box: opscode-ubuntu-12.04
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
+    run_list: recipe[apt]
+
   - name: centos-6.4
+    driver_config:
+      box: opscode-centos-6.4
+      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
+    run_list:
+    - recipe[yum-epel]
 
 suites:
-  - name: default
+  - name: install_package
     run_list:
+    - recipe[minitest-handler]
+    - recipe[duplicity_ng::install]
     attributes:
+      duplicity_ng:
+        install_method: package
+        bin_path: /usr/bin/duplicity
+        source:
+          use_pip: false
+  - name: install_source
+    run_list:
+    - recipe[minitest-handler]
+    - recipe[duplicity_ng::install]
+    attributes:
+      duplicity_ng:
+        install_method: source
+        bin_path: /usr/bin/duplicity
+        source:
+          use_pip: false
+  - name: install_source_pip
+    run_list:
+    - recipe[minitest-handler]
+    - recipe[python::pip]
+    - recipe[duplicity_ng::install]
+    attributes:
+      duplicity_ng:
+        install_method: source
+        bin_path: /usr/bin/duplicity
+        source:
+          use_pip: true
+  - name: install_source_pip_python
+    run_list:
+    - recipe[minitest-handler]
+    - recipe[build-essential]
+    - recipe[python]
+    - recipe[duplicity_ng::install]
+    attributes:
+      build-essential:
+        compile_time: true
+      python:
+        install_method: source
+      duplicity_ng:
+        install_method: source
+        bin_path: /usr/local/bin/duplicity
+        source:
+          use_pip: true
