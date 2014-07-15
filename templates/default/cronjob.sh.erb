@@ -23,9 +23,11 @@ export SWIFT_USERNAME="<%= @swift_username %>"
 export SWIFT_PASSWORD="<%= @swift_password %>"
 export SWIFT_AUTHURL="<%= @swift_authurl %>"
 
+<% if @aws_access_key_id and @aws_secret_access_key %>
 # Settings for S3
 export AWS_ACCESS_KEY_ID="<%= @aws_access_key_id %>"
 export AWS_SECRET_ACCESS_KEY="<%= @aws_secret_access_key %>"
+<% end -%>
 
 # Remove old backups
 nice -n <%= @nice %> ionice -c <%= @ionice %> \
