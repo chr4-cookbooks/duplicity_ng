@@ -22,20 +22,20 @@ action :create do
 
   # Check for dependencies
 
-  unless node['recipes'].include?("duplicity_ng::install")
-    include_recipe "duplicity_ng::install"
+  unless node['recipes'].include?('duplicity_ng::install')
+    include_recipe 'duplicity_ng::install'
   end
 
-  if (new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')) and !node['recipes'].include?("duplicity_ng::install_boto")
-    include_recipe "duplicity_ng::install_boto"
+  if (new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')) && !node['recipes'].include?('duplicity_ng::install_boto')
+    include_recipe 'duplicity_ng::install_boto'
   end
 
-  if new_resource.backend.include?('ftp://') and !node['recipes'].include?("duplicity_ng::install_ftp")
-    include_recipe "duplicity_ng::install_ftp"
+  if new_resource.backend.include?('ftp://') && !node['recipes'].include?('duplicity_ng::install_ftp')
+    include_recipe 'duplicity_ng::install_ftp'
   end
 
-  if new_resource.backend.include?('swift://') and !node['recipes'].include?("duplicity_ng::install_swift")
-    include_recipe "duplicity_ng::install_swift"
+  if new_resource.backend.include?('swift://') && !node['recipes'].include?('duplicity_ng::install_swift')
+    include_recipe 'duplicity_ng::install_swift'
   end
 
   directory ::File.dirname(new_resource.logfile) do

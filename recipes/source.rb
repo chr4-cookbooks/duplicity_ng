@@ -24,23 +24,23 @@ node['duplicity_ng']['source']['dev']['packages'].each do |name|
   package name
 end
 
-python_bin = "python"
+python_bin = 'python'
 
-if Chef::Provider.const_defined?("PythonPip")
-  python_pip "lockfile"
+if Chef::Provider.const_defined?('PythonPip')
+  python_pip 'lockfile'
   gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
   remote_file gpg_source_file do
     source   node['duplicity_ng']['source']['gnupg']['url']
     checksum node['duplicity_ng']['source']['gnupg']['checksum']
     action   :create
-    notifies :install, "python_pip[install_gnupginterface]", :immediately
+    notifies :install, 'python_pip[install_gnupginterface]', :immediately
   end
-  python_pip "install_gnupginterface" do
+  python_pip 'install_gnupginterface' do
     package_name gpg_source_file
     action       :nothing
   end
-  python_pip "paramiko"
-  python_bin = node["python"]["binary"]
+  python_pip 'paramiko'
+  python_bin = node['python']['binary']
 else
   node['duplicity_ng']['source']['python']['packages'].each do |name|
     package name
@@ -51,10 +51,10 @@ remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng'][
   source   node['duplicity_ng']['source']['url']
   checksum node['duplicity_ng']['source']['checksum']
   action   :create
-  notifies :run, "bash[compile_duplicity_from_source]", :immediately
+  notifies :run, 'bash[compile_duplicity_from_source]', :immediately
 end
 
-bash "compile_duplicity_from_source" do
+bash 'compile_duplicity_from_source' do
   cwd Chef::Config[:file_cache_path]
   code <<-EOH
     tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz

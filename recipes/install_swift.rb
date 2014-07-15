@@ -20,8 +20,8 @@
 
 # Install Swift client
 
-if node['duplicity_ng']['install_method'].include? "source"
-  if Chef::Provider.const_defined?("PythonPip")
+if node['duplicity_ng']['install_method'].include? 'source'
+  if Chef::Provider.const_defined?('PythonPip')
     python_pip 'python-swiftclient'
   else
     package 'python-swiftclient'
