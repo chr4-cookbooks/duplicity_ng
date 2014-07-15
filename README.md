@@ -115,7 +115,7 @@ duplicity_ng_boto 'mybotoconfig' do
   cookbook         'duplicity_ng'          # Cookbook to take erb template from
   source           'boto.cfg.erb'     # ERB template to use
   variables        {}
-end  
+end
 ```
 
 ## Contributing
