@@ -71,10 +71,18 @@ duplicity_ng_cronjob 'myduplicity' do
 end
 ```
 
-S3 Europe bucket style for `backend`
+Feel free to specify additional (backend related) duplicity arguments to the backend attribute.
+For example, to use europe buckets with S3, use the following
+
 ```ruby
-  backend    '--s3-use-new-style --s3-european-buckets s3://server.com/bucket[/prefix]' # S3 EU bucket
-  backend    '--s3-use-new-style --s3-european-buckets s3+http://bucket[/prefix]' # S3 EU bucket
+duplicity_ng 's3 europe' do
+  backend '--s3-use-new-style --s3-european-buckets s3+http://bucket[/prefix]'
+
+  # You can also specify a specific server to use
+  # backend '--s3-use-new-style --s3-european-buckets s3://server.com/bucket[/prefix]'
+
+  # Additional configuration here, see example above
+end
 ```
 
 
