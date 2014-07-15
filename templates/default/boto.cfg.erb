@@ -1,0 +1,15 @@
+#
+# This file is maintained by Chef for <%= node['fqdn'] %>.
+# Local changes will be overwritten.
+
+[Credentials]
+aws_access_key_id = <%= @aws_access_key_id %>
+aws_secret_access_key = <%= @aws_secret_access_key %>
+
+gs_access_key_id = <%= @gs_access_key_id %>
+gs_secret_access_key = <%= @gs_secret_access_key %>
+
+[Boto]
+<% @params.each_pair do |k,v| %>
+<%= k %> = <%= v %>
+<% end -%>
