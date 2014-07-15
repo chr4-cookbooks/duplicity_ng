@@ -64,6 +64,10 @@ duplicity_ng_cronjob 'myduplicity' do
   aws_access_key_id     'MY_ACCESS_ID'
   aws_secret_access_key 'MY_SECRET'
 
+  # In case you use Google Cloud Storage as your backend, your credentials go here
+  gs_access_key_id     'MY_ACCESS_ID'
+  gs_secret_access_key 'MY_SECRET'
+
   # Alternatively, you can specify your own template to use
   cookbook         'duplicity_ng'          # Cookbook to take erb template from
   source           'cronjob.sh.erb'     # ERB template to use
