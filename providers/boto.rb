@@ -2,7 +2,7 @@
 # Cookbook Name:: duplicity_ng
 # Provider:: boto
 #
-# Copyright (C) 2014 Chris Aumann
+# Copyright (C) 2014 Alexander Merkulov
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
