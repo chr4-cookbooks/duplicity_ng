@@ -26,7 +26,7 @@ attribute :interval,         kind_of: String, default: 'daily'
 attribute :cookbook,         kind_of: String, default: 'duplicity_ng'
 attribute :source,           kind_of: String, default: 'cronjob.sh.erb'
 attribute :variables,        kind_of: Hash,   default: {}
-attribute :duplicity_path,   kind_of: String, default: nil
+attribute :duplicity_path,   kind_of: String, default: node['duplicity_ng']['path']
 attribute :configure_zabbix, kind_of: [TrueClass, FalseClass], default: false
 attribute :logfile,          kind_of: String, default: '/dev/null'
 
