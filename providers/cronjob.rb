@@ -19,11 +19,24 @@
 #
 
 action :create do
-  # Install duplicity, and backend-specific packages
-  package 'duplicity'
-  package 'ncftp' if new_resource.backend.include?('ftp://')
-  package 'python-swiftclient' if new_resource.backend.include?('swift://')
-  package 'python-boto' if new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')
+
+  # Check for dependencies
+
+  unless node['recipes'].include?('duplicity_ng::install')
+    include_recipe 'duplicity_ng::install'
+  end
+
+  if (new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://')) && !node['recipes'].include?('duplicity_ng::install_boto')
+    include_recipe 'duplicity_ng::install_boto'
+  end
+
+  if new_resource.backend.include?('ftp://') && !node['recipes'].include?('duplicity_ng::install_ftp')
+    include_recipe 'duplicity_ng::install_ftp'
+  end
+
+  if new_resource.backend.include?('swift://') && !node['recipes'].include?('duplicity_ng::install_swift')
+    include_recipe 'duplicity_ng::install_swift'
+  end
 
   directory ::File.dirname(new_resource.logfile) do
     mode 00755
@@ -37,6 +50,7 @@ action :create do
     if new_resource.variables.empty?
       variables logfile: new_resource.logfile,
                 backend: new_resource.backend,
+                duplicity_path: new_resource.duplicity_path,
                 passphrase: new_resource.passphrase,
                 include: new_resource.include,
                 exclude: new_resource.exclude,
@@ -77,6 +91,7 @@ action :create do
       commands ["#{new_resource.duplicity_path} collection-status *"]
     end
   end
+  new_resource.updated_by_last_action(true)
 end
 
 action :delete do
@@ -94,4 +109,5 @@ action :delete do
       only_if 'ls /etc/zabbix/zabbix_agentd.conf.d/duplicity_*.conf &> /dev/null'
     end
   end
+  new_resource.updated_by_last_action(true)
 end

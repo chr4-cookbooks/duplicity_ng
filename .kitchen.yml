@@ -3,13 +3,64 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
+- name: centos-6.5
+  run_list: recipe[yum-epel]
+- name: centos-5.9
+  run_list: recipe[yum-epel]
+- name: ubuntu-14.04
+  run_list: recipe[apt]
+- name: ubuntu-13.10
+  run_list: recipe[apt]
+- name: ubuntu-12.04
+  run_list: recipe[apt]
+- name: debian-7.2.0
+  run_list: recipe[apt]
 
 suites:
-  - name: default
+  - name: install_package
     run_list:
+    - recipe[minitest-handler]
+    - recipe[duplicity_ng::install]
+
+  - name: install_source
+    run_list:
+    - recipe[minitest-handler]
+    - recipe[duplicity_ng::install]
     attributes:
+      duplicity_ng:
+        install_method: source
+        binary: /usr/bin/duplicity
+        source:
+          use_pip: false
+
+  - name: install_source_pip
+    run_list:
+    - recipe[minitest-handler]
+    - recipe[python::pip]
+    - recipe[duplicity_ng::install]
+    attributes:
+      duplicity_ng:
+        install_method: source
+        binary: /usr/bin/duplicity
+        source:
+          use_pip: true
+
+  - name: install_source_pip_python
+    run_list:
+    - recipe[minitest-handler]
+    - recipe[build-essential]
+    - recipe[python]
+    - recipe[duplicity_ng::install]
+    attributes:
+      build-essential:
+        compile_time: true
+      python:
+        install_method: source
+      duplicity_ng:
+        install_method: source
+        binary: /usr/local/bin/duplicity
+        source:
+          use_pip: true

@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: duplicity_ng
-# Provider:: boto
 #
 # Copyright (C) 2014 Alexander Merkulov
+# Copyright (C) 2014 Chris Aumann
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,28 +18,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-action :create do
-  template '/etc/boto.cfg' do
-    mode     00640
-    source   new_resource.source
-    cookbook new_resource.cookbook
+module Helpers
+  module TestHelper # rubocop:disable Style/Documentation
+    require 'chef/mixin/shell_out'
+    include Chef::Mixin::ShellOut
+    include MiniTest::Chef::Assertions
+    include MiniTest::Chef::Context
+    include MiniTest::Chef::Resources
 
-    if new_resource.variables.empty?
-      variables aws_access_key_id: new_resource.aws_access_key_id,
-                aws_secret_access_key: new_resource.aws_secret_access_key,
-                gs_access_key_id: new_resource.gs_access_key_id,
-                gs_secret_access_key: new_resource.gs_secret_access_key,
-                params: new_resource.params
-    else
-      variables new_resource.variables
+    # courtesy http://stackoverflow.com/questions/2108727/which-in-ruby-checking-if-program-exists-in-path-from-ruby
+    def which(cmd)
+      exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+      ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+        exts.each do |ext|
+          exe = File.join(path, "#{cmd}#{ext}")
+          return exe if File.executable? exe
+        end
+      end
+      nil
     end
   end
-  new_resource.updated_by_last_action(true)
-end
-
-action :delete do
-  file '/etc/boto.cfg' do
-    action :delete
-  end
-  new_resource.updated_by_last_action(true)
 end
