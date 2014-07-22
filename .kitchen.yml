@@ -32,7 +32,7 @@ suites:
     attributes:
       duplicity_ng:
         install_method: source
-        binary: /usr/bin/duplicity
+        path: /usr/bin/duplicity
         source:
           use_pip: false
 
@@ -44,7 +44,7 @@ suites:
     attributes:
       duplicity_ng:
         install_method: source
-        binary: /usr/bin/duplicity
+        path: /usr/bin/duplicity
         source:
           use_pip: true
 
@@ -61,6 +61,6 @@ suites:
         install_method: source
       duplicity_ng:
         install_method: source
-        binary: /usr/local/bin/duplicity
+        path: /usr/local/bin/duplicity
         source:
           use_pip: true
