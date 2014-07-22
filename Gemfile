@@ -1,8 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf'
-gem 'foodcritic'
-gem 'rubocop'
+group :development do
+  gem 'chef-zero'
+  gem 'rubocop'
+  gem 'berkshelf'
+  gem 'foodcritic'
+end
 
 group :integration do
   gem 'test-kitchen'
