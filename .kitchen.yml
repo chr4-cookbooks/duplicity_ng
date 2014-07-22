@@ -2,23 +2,22 @@
 driver:
   name: vagrant
 
-driver_config:
-  require_chef_omnibus: true
-  use_vagrant_berkshelf_plugin: true
+provisioner:
+  name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
-    driver_config:
-      box: opscode-ubuntu-12.04
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
-    run_list: recipe[apt]
-
-  - name: centos-6.4
-    driver_config:
-      box: opscode-centos-6.4
-      box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
-    run_list:
-    - recipe[yum-epel]
+- name: centos-6.5
+  run_list: recipe[yum-epel]
+- name: centos-5.9
+  run_list: recipe[yum-epel]
+- name: ubuntu-14.04
+  run_list: recipe[apt]
+- name: ubuntu-13.10
+  run_list: recipe[apt]
+- name: ubuntu-12.04
+  run_list: recipe[apt]
+- name: debian-7.2.0
+  run_list: recipe[apt]
 
 suites:
   - name: install_package
@@ -31,6 +30,7 @@ suites:
         binary: /usr/bin/duplicity
         source:
           use_pip: false
+
   - name: install_source
     run_list:
     - recipe[minitest-handler]
@@ -41,6 +41,7 @@ suites:
         binary: /usr/bin/duplicity
         source:
           use_pip: false
+
   - name: install_source_pip
     run_list:
     - recipe[minitest-handler]
@@ -52,6 +53,7 @@ suites:
         binary: /usr/bin/duplicity
         source:
           use_pip: true
+
   - name: install_source_pip_python
     run_list:
     - recipe[minitest-handler]
