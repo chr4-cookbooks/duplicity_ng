@@ -19,7 +19,7 @@
 #
 
 module Helpers
-  module TestHelper
+  module TestHelper # rubocop:disable Style/Documentation
     require 'chef/mixin/shell_out'
     include Chef::Mixin::ShellOut
     include MiniTest::Chef::Assertions
@@ -30,12 +30,12 @@ module Helpers
     def which(cmd)
       exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
       ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-        exts.each { |ext|
+        exts.each do |ext|
           exe = File.join(path, "#{cmd}#{ext}")
           return exe if File.executable? exe
-        }
+        end
       end
-      return nil
+      nil
     end
   end
 end

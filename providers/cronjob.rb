@@ -91,6 +91,7 @@ action :create do
       commands ["#{new_resource.duplicity_path} collection-status *"]
     end
   end
+  new_resource.updated_by_last_action(true)
 end
 
 action :delete do
@@ -108,4 +109,5 @@ action :delete do
       only_if 'ls /etc/zabbix/zabbix_agentd.conf.d/duplicity_*.conf &> /dev/null'
     end
   end
+  new_resource.updated_by_last_action(true)
 end

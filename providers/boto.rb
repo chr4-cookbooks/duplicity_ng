@@ -34,10 +34,12 @@ action :create do
       variables new_resource.variables
     end
   end
+  new_resource.updated_by_last_action(true)
 end
 
 action :delete do
   file '/etc/boto.cfg' do
     action :delete
   end
+  new_resource.updated_by_last_action(true)
 end
