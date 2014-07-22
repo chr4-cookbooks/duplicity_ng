@@ -21,6 +21,9 @@
 
 default['duplicity_ng']['install_method'] = 'package' # Can be "source" or "package"
 default['duplicity_ng']['binary'] = '/usr/bin/duplicity'
+
+# Path to duplicity executeable
+default['duplicity_ng']['path'] = '/usr/bin/duplicity'
 default['duplicity_ng']['source']['use_pip'] = false # If true then we try to use pip
 default['duplicity_ng']['source']['checksum'] = '5d4e9329a6d793880909d18b0736ff06'
 default['duplicity_ng']['source']['version'] = '0.6.24'
