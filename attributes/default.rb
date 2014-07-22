@@ -36,14 +36,10 @@ default['duplicity_ng']['source']['gnupg']['checksum'] = 'd4627d83446f96bd8c22f8
 
 case node['platform_family']
 when 'debian'
-  python_dev = 'python-dev'
-  default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-dev)
-  default['duplicity_ng']['source']['python']['dev'] = python_dev
-  default['duplicity_ng']['source']['python']['packages'] = [python_dev, 'python-lockfile', 'python-gnupginterface', 'python-paramiko']
+  default['duplicity_ng']['source']['dev']['packages'] = %w(python-dev librsync-dev)
+  default['duplicity_ng']['source']['python']['packages'] = ['python-lockfile', 'python-gnupginterface', 'python-paramiko']
 when 'rhel', 'fedora', 'suse'
-  python_dev = 'python-devel'
   default['duplicity_ng']['source']['use_pip'] = true # Because here old packages
-  default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-devel)
-  default['duplicity_ng']['source']['python']['dev'] = python_dev
-  default['duplicity_ng']['source']['python']['packages'] = [python_dev, 'python-lockfile', 'python-GnuPGInterface', 'python-paramiko']
+  default['duplicity_ng']['source']['dev']['packages'] = %w(python-devel librsync-devel)
+  default['duplicity_ng']['source']['python']['packages'] = ['python-lockfile', 'python-GnuPGInterface', 'python-paramiko']
 end
