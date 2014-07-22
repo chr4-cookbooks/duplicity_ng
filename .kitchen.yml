@@ -24,12 +24,6 @@ suites:
     run_list:
     - recipe[minitest-handler]
     - recipe[duplicity_ng::install]
-    attributes:
-      duplicity_ng:
-        install_method: package
-        binary: /usr/bin/duplicity
-        source:
-          use_pip: false
 
   - name: install_source
     run_list:
