@@ -45,9 +45,10 @@ Installs python `boto` package
 
 Installs `ncftp` package
 
-#### install\_ppa
+#### ppa
 
-Ubuntu repositories with latest version of `duplicity`.
+Setup Ubuntu repositories with latest version of `duplicity`.
+Run this recipe before you use the `duplicity_ng::install` recipe.
 
 
 ### Providers
