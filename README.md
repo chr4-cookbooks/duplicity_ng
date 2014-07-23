@@ -33,19 +33,19 @@ Blank recipe
 
 Installs main packages
 
-#### install_swift
+#### install\_swift
 
 Installs `python-swiftclient` package
 
-#### install_boto
+#### install\_boto
 
 Installs python `boto` package
 
-#### install_ftp
+#### install\_ftp
 
 Installs `ncftp` package
 
-#### install_ppa
+#### install\_ppa
 
 Ubuntu repositories with latest version of `duplicity`.
 
