@@ -19,9 +19,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Install method: Can be 'source' or 'package'
-default['duplicity_ng']['install_method'] = 'package'
-
 # Path to duplicity executeable
 default['duplicity_ng']['path'] = '/usr/bin/duplicity'
 

@@ -15,7 +15,6 @@ Tested on Ubuntu.
 
 See the `attributes/default.rb` file for default values.
 
-* `node['duplicity_ng']['install_method']` - Install method, can be "package" or "source" (by default "package").
 * `node['duplicity_ng']['path']` - Path to `duplicity` executable (by default "/usr/bin/duplicity").
 * `node['duplicity_ng']['source']['checksum']` - `duplicity` remote source file checksum.
 * `node['duplicity_ng']['source']['version']` - `duplicity` version (only for "source" install method).

@@ -23,15 +23,14 @@ suites:
   - name: install_package
     run_list:
     - recipe[minitest-handler]
-    - recipe[duplicity_ng::install]
+    - recipe[duplicity_ng::package]
 
   - name: install_source
     run_list:
     - recipe[minitest-handler]
-    - recipe[duplicity_ng::install]
+    - recipe[duplicity_ng::source]
     attributes:
       duplicity_ng:
-        install_method: source
         path: /usr/bin/duplicity
         source:
           use_pip: false
@@ -40,10 +39,9 @@ suites:
     run_list:
     - recipe[minitest-handler]
     - recipe[python::pip]
-    - recipe[duplicity_ng::install]
+    - recipe[duplicity_ng::source]
     attributes:
       duplicity_ng:
-        install_method: source
         path: /usr/bin/duplicity
         source:
           use_pip: true
@@ -53,14 +51,13 @@ suites:
     - recipe[minitest-handler]
     - recipe[build-essential]
     - recipe[python]
-    - recipe[duplicity_ng::install]
+    - recipe[duplicity_ng::source]
     attributes:
       build-essential:
         compile_time: true
       python:
         install_method: source
       duplicity_ng:
-        install_method: source
         path: /usr/local/bin/duplicity
         source:
           use_pip: true
