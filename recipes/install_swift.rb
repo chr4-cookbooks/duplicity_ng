@@ -21,7 +21,7 @@
 
 # Install Swift client
 
-if node['duplicity_ng']['source']['use_pip']
+if node['duplicity_ng']['use_pip']
   python_pip 'python-swiftclient'
 else
   package 'python-swiftclient'

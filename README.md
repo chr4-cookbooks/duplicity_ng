@@ -19,7 +19,7 @@ See the `attributes/default.rb` file for default values.
 node['duplicity_ng']['path']
 
 # Use pyhton pip to install duplicity dependencies (defaults to false)
-node['duplicity_ng']['source']['use_pip'] = true
+node['duplicity_ng']['use_pip'] = true
 
 # The following attributes are only used when using the "duplicity_ng::source" recipe
 node['duplicity_ng']['source']['checksum'] #  duplicity remote source file checksum.
@@ -50,12 +50,12 @@ The providers run them in case they are required.
 #### install\_swift
 
 Helper recipe, installs `python-swiftclient`.
-Uses the system package if `node['duplicity_ng']['source']['use_pip'] = false`, otherwise uses pip.
+Uses the system package if `node['duplicity_ng']['use_pip'] = false`, otherwise uses pip.
 
 #### install\_boto
 
 Helper recipe, installs `python-boto`.
-Uses the system package if `node['duplicity_ng']['source']['use_pip'] = false`, otherwise uses pip.
+Uses the system package if `node['duplicity_ng']['use_pip'] = false`, otherwise uses pip.
 
 #### install\_ftp
 

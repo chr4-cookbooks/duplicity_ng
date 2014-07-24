@@ -32,8 +32,7 @@ suites:
     attributes:
       duplicity_ng:
         path: /usr/bin/duplicity
-        source:
-          use_pip: false
+        use_pip: false
 
   - name: install_source_pip
     run_list:
@@ -43,5 +42,4 @@ suites:
     attributes:
       duplicity_ng:
         path: /usr/bin/duplicity
-        source:
-          use_pip: true
+        use_pip: true

@@ -23,7 +23,7 @@
 default['duplicity_ng']['path'] = '/usr/bin/duplicity'
 
 # Set this to true to use pip to install duplicity dependencies
-default['duplicity_ng']['source']['use_pip'] = false
+default['duplicity_ng']['use_pip'] = false
 
 # Variables for installing duplicity from source
 default['duplicity_ng']['source']['checksum'] = '5d4e9329a6d793880909d18b0736ff06'
@@ -40,7 +40,7 @@ when 'debian'
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-gnupginterface python-paramiko)
 when 'rhel', 'fedora', 'suse'
   # Use pip by default on rhel, as the packages are outdated
-  default['duplicity_ng']['source']['use_pip'] = true
+  default['duplicity_ng']['use_pip'] = true
   default['duplicity_ng']['source']['dev']['packages'] = %w(python-devel librsync-devel)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-GnuPGInterface python-paramiko)
 end

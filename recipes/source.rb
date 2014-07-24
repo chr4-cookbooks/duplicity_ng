@@ -27,7 +27,7 @@ end
 
 python_bin = 'python'
 
-if node['duplicity_ng']['source']['use_pip']
+if node['duplicity_ng']['use_pip']
   python_pip 'lockfile'
   gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
   remote_file gpg_source_file do
