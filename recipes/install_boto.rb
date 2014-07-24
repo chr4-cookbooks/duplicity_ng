@@ -21,7 +21,7 @@
 
 # Install Boto library
 
-if node['duplicity_ng']['use_pip']
+if pip?
   python_pip 'boto'
 else
   package 'python-boto'
