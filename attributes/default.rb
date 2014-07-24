@@ -37,10 +37,10 @@ default['duplicity_ng']['source']['gnupg']['checksum'] = 'd4627d83446f96bd8c22f8
 case node['platform_family']
 when 'debian'
   default['duplicity_ng']['source']['dev']['packages'] = %w(python-dev librsync-dev)
-  default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-gnupginterface python-paramiko)
+  default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-gnupginterface python-paramiko)
 when 'rhel', 'fedora', 'suse'
   # Use pip by default on rhel, as the packages are outdated
   default['duplicity_ng']['use_pip'] = true
   default['duplicity_ng']['source']['dev']['packages'] = %w(python-devel librsync-devel)
-  default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-GnuPGInterface python-paramiko)
+  default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-GnuPGInterface python-paramiko)
 end
