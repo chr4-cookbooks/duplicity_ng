@@ -19,8 +19,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Install duplicity, and backend-specific packages
+# Install build tools
+include_recipe 'build-essential'
 
+# Install duplicity, and backend-specific packages
 node['duplicity_ng']['source']['dev']['packages'].each do |name|
   package name
 end
