@@ -45,19 +45,3 @@ suites:
         path: /usr/bin/duplicity
         source:
           use_pip: true
-
-  - name: install_source_pip_python
-    run_list:
-    - recipe[minitest-handler]
-    - recipe[build-essential]
-    - recipe[python]
-    - recipe[duplicity_ng::source]
-    attributes:
-      build-essential:
-        compile_time: true
-      python:
-        install_method: source
-      duplicity_ng:
-        path: /usr/local/bin/duplicity
-        source:
-          use_pip: true
