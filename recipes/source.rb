@@ -19,8 +19,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# Include Helpers Library
+::Chef::Recipe.send(:include, DuplicityNg::Helpers)
+
 # Install build tools
 include_recipe 'build-essential'
+
+if rhel510? && !python_source?
+  include_recipe 'python::package'
+  node.default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-devel)
+end
 
 # Install duplicity, and backend-specific packages
 node['duplicity_ng']['source']['dev']['packages'].each do |name|
@@ -29,7 +37,8 @@ end
 
 python_bin = 'python'
 
-if node['duplicity_ng']['use_pip']
+if pip?
+  include_recipe 'python::pip'
   python_pip 'lockfile'
   python_pip 'setuptools'
   gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
