@@ -22,8 +22,6 @@
 # Install build tools
 include_recipe 'build-essential'
 
-include_recipe 'python::package' if rhel510? && !python_source?
-
 # Install duplicity, and backend-specific packages
 node['duplicity_ng']['source']['dev']['packages'].each do |name|
   package name
@@ -32,7 +30,6 @@ end
 python_bin = 'python'
 
 if pip?
-  include_recipe 'python::pip'
   python_pip 'lockfile'
   python_pip 'setuptools'
   gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"

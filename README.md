@@ -8,6 +8,11 @@ It should work on most Linux distributions.
 
 Tested on Ubuntu and CentOS.
 
+Note:
+
+*For RHEL(CentOS) 5.x you must have in run_list: `python` or `python::package` or `python::source` recipe.*
+*Otherwise process can FAIL.*
+
 ## Usage
 
 ### Attributes

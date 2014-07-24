@@ -28,24 +28,6 @@ class Chef
   #
   class Recipe
     #
-    # Determine if the current node using old RHEL.
-    #
-    # @return [Boolean]
-    #
-    def rhel510?
-      platform_family?('rhel') && node['platform_version'].to_f < 6.0
-    end
-
-    #
-    # Determine if the current node is use Python from sources.
-    #
-    # @return [Boolean]
-    #
-    def python_source?
-      node['recipes'].include?('python::source') || node['python']['install_method'].include?('source')
-    end
-
-    #
     # Determine if the current node is use Python PIP.
     #
     # @return [Boolean]
