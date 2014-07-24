@@ -4,10 +4,9 @@ Cookbook for installing [duplicity](http://duplicity.nongnu.org/) backup cronjob
 
 ## Supported Platforms
 
-All platforms with a duplicity package available, and support for `/etc/cron.*/` directories.
+It should work on most Linux distributions.
 
-Tested on Ubuntu.
-
+Tested on Ubuntu and CentOS.
 
 ## Usage
 
@@ -15,39 +14,53 @@ Tested on Ubuntu.
 
 See the `attributes/default.rb` file for default values.
 
-* `node['duplicity_ng']['path']` - Path to `duplicity` executable (by default "/usr/bin/duplicity").
-* `node['duplicity_ng']['source']['checksum']` - `duplicity` remote source file checksum.
-* `node['duplicity_ng']['source']['version']` - `duplicity` version (only for "source" install method).
-* `node['duplicity_ng']['source']['gnupg']['checksum']` - `GnuPGInterface` remote source file checksum.
-* `node['duplicity_ng']['source']['gnupg']['version']` - `GnuPGInterface` version.
+```ruby
+# Path to duplicity executable (by default "/usr/bin/duplicity").
+node['duplicity_ng']['path']
 
+# Use pyhton pip to install duplicity dependencies (defaults to false)
+node['duplicity_ng']['source']['use_pip'] = true
+
+# The following attributes are only used when using the "duplicity_ng::source" recipe
+node['duplicity_ng']['source']['checksum'] #  duplicity remote source file checksum.
+node['duplicity_ng']['source']['version']  #  duplicity version (only for "source" install method).
+
+node['duplicity_ng']['source']['gnupg']['checksum'] #  GnuPGInterface remote source file checksum.
+node['duplicity_ng']['source']['gnupg']['version']  #  GnuPGInterface version.
+```
 
 ### Recipes
 
-#### default
+#### package
 
-Blank recipe
-
-#### install
-
-Installs main packages
-
-#### install\_swift
-
-Installs `python-swiftclient` package
-
-#### install\_boto
-
-Installs python `boto` package
-
-#### install\_ftp
-
-Installs `ncftp` package
+Install duplicity using packages provided by the system. If you need newer versions, you can include
+`duplicity_ng::ppa` before running this recipe to setup the official duplicity ppa (on Ubuntu)
 
 #### ppa
 
 Setup Ubuntu repositories with latest version of `duplicity`.
 Run this recipe before you use the `duplicity_ng::install` recipe.
+
+
+### Helper recipes
+
+These recipes you probably do not need to call manually.
+The providers run them in case they are required.
+
+#### install\_swift
+
+Helper recipe, installs `python-swiftclient`.
+Uses the system package if `node['duplicity_ng']['source']['use_pip'] = false`, otherwise uses pip.
+
+#### install\_boto
+
+Helper recipe, installs `python-boto`.
+Uses the system package if `node['duplicity_ng']['source']['use_pip'] = false`, otherwise uses pip.
+
+#### install\_ftp
+
+Helpe recipe, installs `ncftp`.
+
 
 
 ### Providers
@@ -130,7 +143,7 @@ end
 
 #### duplicity\_ng\_boto
 
-Writes boto config. With this you can skip keys in `cronjob` provider.
+Deploys boto configuration. With this you can skip keys in `cronjob` provider.
 
 ```ruby
 duplicity_ng_boto 'mybotoconfig' do
@@ -151,9 +164,9 @@ duplicity_ng_boto 'mybotoconfig' do
   }
 
   # Alternatively, you can specify your own template to use
-  cookbook         'duplicity_ng'          # Cookbook to take erb template from
-  source           'boto.cfg.erb'     # ERB template to use
-  variables        {}
+  cookbook  'duplicity_ng' # Cookbook to take erb template from
+  source    'boto.cfg.erb' # ERB template to use
+  variables {}
 end
 ```
 
