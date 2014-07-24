@@ -19,16 +19,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Include Helpers Library
-::Chef::Recipe.send(:include, DuplicityNg::Helpers)
-
 # Install build tools
 include_recipe 'build-essential'
 
-if rhel510? && !python_source?
-  include_recipe 'python::package'
-  node.default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-devel)
-end
+include_recipe 'python::package' if rhel510? && !python_source?
 
 # Install duplicity, and backend-specific packages
 node['duplicity_ng']['source']['dev']['packages'].each do |name|

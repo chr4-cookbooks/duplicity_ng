@@ -22,11 +22,11 @@
 
 include Chef::Mixin::ShellOut
 
-module DuplicityNg
+class Chef
   #
   # Base helpers to cleanup recipe logic.
   #
-  module Helpers
+  class Recipe
     #
     # Determine if the current node using old RHEL.
     #
