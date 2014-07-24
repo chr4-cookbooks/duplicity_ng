@@ -19,12 +19,10 @@
 #
 
 action :create do
-
   # Check for dependencies
-
   include_recipe 'duplicity_ng::install'
-  include_recipe 'duplicity_ng::install_boto' if boto?(new_resource)
-  include_recipe 'duplicity_ng::install_ftp' if ftp?(new_resource)
+  include_recipe 'duplicity_ng::install_boto'  if boto?(new_resource)
+  include_recipe 'duplicity_ng::install_ftp'   if ftp?(new_resource)
   include_recipe 'duplicity_ng::install_swift' if swift?(new_resource)
 
   directory ::File.dirname(new_resource.logfile) do
