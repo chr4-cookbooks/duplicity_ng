@@ -1,3 +1,12 @@
+1.0.0
+-----
+
+- Add support for Google Cloud Storage
+- Add ability to install duplicity from source
+- Add provider to configure boto
+- Add integration tests (for install recipes)
+- A lot of internal improvements and fixes
+
 0.2.2
 -----
 
