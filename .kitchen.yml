@@ -9,7 +9,9 @@ platforms:
 - name: centos-6.5
   run_list: recipe[yum-epel]
 - name: centos-5.10
-  run_list: recipe[yum-epel]
+  run_list:
+  - recipe[yum-epel]
+  - recipe[python::package]
 - name: ubuntu-14.04
   run_list: recipe[apt]
 - name: ubuntu-13.10
@@ -37,6 +39,7 @@ suites:
   - name: install_source_pip
     run_list:
     - recipe[minitest-handler]
+    - recipe[python::pip]
     - recipe[duplicity_ng::source]
     attributes:
       duplicity_ng:
