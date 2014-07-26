@@ -10,6 +10,6 @@ gs_access_key_id = <%= @gs_access_key_id %>
 gs_secret_access_key = <%= @gs_secret_access_key %>
 
 [Boto]
-<% @params.each_pair do |k,v| %>
+<% @options.each_pair do |k,v| %>
 <%= k %> = <%= v %>
 <% end -%>

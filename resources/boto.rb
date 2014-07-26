@@ -25,7 +25,7 @@ attribute :name,      kind_of: String, name_attribute: true
 attribute :cookbook,  kind_of: String, default: 'duplicity_ng'
 attribute :source,    kind_of: String, default: 'boto.cfg.erb'
 attribute :variables, kind_of: Hash,   default: {}
-attribute :params,    kind_of: Hash,   default: {}
+attribute :options,   kind_of: Hash,   default: {}
 
 # S3 backend parameters
 attribute :aws_access_key_id,     kind_of: String, default: nil

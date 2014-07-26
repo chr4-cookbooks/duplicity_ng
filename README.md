@@ -157,8 +157,8 @@ duplicity_ng_boto 'mybotoconfig' do
   gs_access_key_id     'MY_ACCESS_ID'
   gs_secret_access_key 'MY_SECRET'
 
-  # In case you need additional params for Boto
-  params {
+  # In case you need additional options for Boto
+  options {
     debug: 0,
     num_retries: 10,
     ec2_region_name: 'us-west-1',
