@@ -20,10 +20,9 @@
 
 action :create do
   # Check for dependencies
-  run_context.include_recipe 'duplicity_ng::install'
-  run_context.include_recipe 'duplicity_ng::install_boto'  if boto?(new_resource)
-  run_context.include_recipe 'duplicity_ng::install_ftp'   if ftp?(new_resource)
-  run_context.include_recipe 'duplicity_ng::install_swift' if swift?(new_resource)
+  run_context.include_recipe 'duplicity_ng::install_boto'  if boto?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_ftp'   if ftp?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_swift' if swift?(new_resource.backend)
 
   directory ::File.dirname(new_resource.logfile) do
     mode 00755
@@ -99,14 +98,14 @@ action :delete do
   new_resource.updated_by_last_action(true)
 end
 
-def boto?(new_resource)
-  new_resource.backend.include?('s3://') || new_resource.backend.include?('s3+http://') || new_resource.backend.include?('gs://')
+def boto?(backend)
+  backend.include?('s3://') || backend.include?('s3+http://') || backend.include?('gs://')
 end
 
-def ftp?(new_resource)
-  new_resource.backend.include?('ftp://')
+def ftp?(backend)
+  backend.include?('ftp://')
 end
 
-def swift?(new_resource)
-  new_resource.backend.include?('swift://')
+def swift?(backend)
+  backend.include?('swift://')
 end
