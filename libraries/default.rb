@@ -28,7 +28,7 @@ class Chef
   #
   class Recipe
     #
-    # Determine if the current node is use Python PIP.
+    # Determine whether the current node has the "use_pip" attribute set.
     #
     # @return [Boolean]
     #

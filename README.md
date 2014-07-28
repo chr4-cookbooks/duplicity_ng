@@ -8,7 +8,7 @@ It should work on most Linux distributions.
 
 Tested on Ubuntu and CentOS.
 
-Note: *For RHEL(CentOS) 5.x you must have in run_list: `python` or `python::package` or `python::source` recipe.* *Otherwise process can FAIL.*
+Note: *On RHEL (CentOS) 5.x, make sure you have python, python::package or python::source in your run_list or include them in your wrapper cookbook. Otherwise the process may fail.*
 
 ## Usage
 
