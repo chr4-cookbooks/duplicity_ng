@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: duplicity_ng
-# Recipe:: install_boto
+# Library:: default
 #
 # Copyright (C) 2014 Alexander Merkulov
 # Copyright (C) 2014 Chris Aumann
@@ -18,11 +18,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+#
 
-# Install Boto library
+include Chef::Mixin::ShellOut
 
-if pip?
-  python_pip 'boto'
-else
-  package 'python-boto'
+class Chef
+  #
+  # Base helpers to cleanup recipe logic.
+  #
+  class Recipe
+    #
+    # Determine whether the current node has the "use_pip" attribute set.
+    #
+    # @return [Boolean]
+    #
+    def pip?
+      node['duplicity_ng']['use_pip']
+    end
+  end
 end

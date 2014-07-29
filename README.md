@@ -8,6 +8,8 @@ It should work on most Linux distributions.
 
 Tested on Ubuntu and CentOS.
 
+Note: *On RHEL (CentOS) 5.x, make sure you have python, python::package or python::source in your run_list or include them in your wrapper cookbook. Otherwise the process may fail.*
+
 ## Usage
 
 ### Attributes
@@ -155,8 +157,8 @@ duplicity_ng_boto 'mybotoconfig' do
   gs_access_key_id     'MY_ACCESS_ID'
   gs_secret_access_key 'MY_SECRET'
 
-  # In case you need additional params for Boto
-  params {
+  # In case you need additional options for Boto
+  options {
     debug: 0,
     num_retries: 10,
     ec2_region_name: 'us-west-1',

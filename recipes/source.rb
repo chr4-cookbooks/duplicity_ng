@@ -29,7 +29,7 @@ end
 
 python_bin = 'python'
 
-if node['duplicity_ng']['use_pip']
+if pip?
   python_pip 'lockfile'
   python_pip 'setuptools'
   gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
