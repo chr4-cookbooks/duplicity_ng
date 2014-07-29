@@ -1,3 +1,8 @@
+1.1.0
+-----
+
+- Add support for CentOS 5.x
+
 1.0.0
 -----
 
