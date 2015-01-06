@@ -28,31 +28,42 @@ action :create do
     mode 00755
   end
 
+  # Deploy configuration
+  template "#{node['duplicity_ng']['confdir']}/duplicity-#{new_resource.name}" do
+    mode      00600
+    source    'environment.erb'
+    cookbook  'duplicity_ng'
+    variables backend: new_resource.backend,
+              duplicity_path: new_resource.duplicity_path,
+              passphrase: new_resource.passphrase,
+              archive_dir: new_resource.archive_dir,
+              temp_dir: new_resource.temp_dir,
+              swift_username: new_resource.swift_username,
+              swift_password: new_resource.swift_password,
+              swift_authurl: new_resource.swift_authurl,
+              aws_access_key_id: new_resource.aws_access_key_id,
+              aws_secret_access_key: new_resource.aws_secret_access_key,
+              gs_access_key_id: new_resource.gs_access_key_id,
+              gs_secret_access_key: new_resource.gs_secret_access_key
+  end
+
+  # Deploy cronjob
   template "/etc/cron.#{new_resource.interval}/duplicity-#{new_resource.name}" do
-    mode     '0750'
+    mode     00750
     source   new_resource.source
     cookbook new_resource.cookbook
 
     if new_resource.variables.empty?
-      variables logfile: new_resource.logfile,
-                backend: new_resource.backend,
-                duplicity_path: new_resource.duplicity_path,
-                passphrase: new_resource.passphrase,
-                include: new_resource.include,
-                exclude: new_resource.exclude,
+      variables configfile: "#{node['duplicity_ng']['confdir']}/duplicity-#{new_resource.name}",
                 archive_dir: new_resource.archive_dir,
                 temp_dir: new_resource.temp_dir,
+                logfile: new_resource.logfile,
+                include: new_resource.include,
+                exclude: new_resource.exclude,
                 full_backup_if_older_than: new_resource.full_backup_if_older_than,
                 nice: new_resource.nice,
                 ionice: new_resource.ionice,
                 keep_full: new_resource.keep_full,
-                swift_username: new_resource.swift_username,
-                swift_password: new_resource.swift_password,
-                swift_authurl: new_resource.swift_authurl,
-                aws_access_key_id: new_resource.aws_access_key_id,
-                aws_secret_access_key: new_resource.aws_secret_access_key,
-                gs_access_key_id: new_resource.gs_access_key_id,
-                gs_secret_access_key: new_resource.gs_secret_access_key,
                 exec_pre: new_resource.exec_pre,
                 exec_before: new_resource.exec_before,
                 exec_after: new_resource.exec_after
