@@ -46,7 +46,15 @@ time nice -n <%= @nice %> ionice -c <%= @ionice %> $DUPLICITY_PATH \
   --exclude '**' \
   ${DUPLICITY_ARGUMENTS[@]} >> <%= @logfile %> 2>&1
 
+# Unset all passphrases
 unset PASSPHRASE
+unset SWIFT_USERNAME
+unset SWIFT_PASSWORD
+unset SWIFT_AUTHURL
+unset AWS_ACCESS_KEY_ID
+unset AWS_SECRET_ACCESS_KEY
+unset GS_ACCESS_KEY_ID
+unset GS_SECRET_ACCESS_KEY
 
 <% Array(@exec_after).each do |cmd| %>
 <%= cmd %>
