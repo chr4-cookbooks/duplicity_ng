@@ -1,3 +1,9 @@
+1.2.0
+-----
+
+- Use configuration file, so one can use credentials and arguments like temporary directories or
+  backend information easily in interactive sessions (See README for details)
+
 1.1.0
 -----
 
