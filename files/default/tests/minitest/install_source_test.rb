@@ -27,5 +27,4 @@ describe 'duplicity_ng::install' do
   it 'installs duplicity package from source' do
     file(which('duplicity')).must_exist
   end
-
 end

@@ -28,5 +28,4 @@ describe 'duplicity_ng::install' do
     cmd = shell_out('pip list |grep -q duplicity')
     cmd.exitstatus.to_s.must_include('0')
   end
-
 end

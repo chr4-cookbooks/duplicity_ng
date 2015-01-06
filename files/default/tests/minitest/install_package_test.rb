@@ -27,5 +27,4 @@ describe 'duplicity_ng::install' do
   it 'installs duplicity package' do
     package('duplicity').must_be_installed
   end
-
 end

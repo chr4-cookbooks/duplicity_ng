@@ -8,4 +8,4 @@ SingleSpaceBeforeFirstArg:
   Enabled: false
 
 TrailingComma:
-  Enabled: false
+  EnforcedStyleForMultiline: comma
