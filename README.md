@@ -172,6 +172,20 @@ duplicity_ng_boto 'mybotoconfig' do
 end
 ```
 
+## Checking status
+
+Since version 1.1.2, you can run commands like `collection-status` conveniently.
+
+```bash
+# Source the configuration
+. /etc/default/duplicity-$jobname   # on Debian familiy
+. /etc/sysconfig/duplicity-$jobname # on RHEL familiy
+. /etc/duplicity-$jobname           # On other families
+
+$DUPLICITY_PATH collection-status $DUPLICITY_ARGUMENTS
+```
+
+
 ## Contributing
 
 1. Fork the repository on Github
