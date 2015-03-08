@@ -208,5 +208,6 @@ $DUPLICITY_PATH collection-status $DUPLICITY_ARGUMENTS
 
 ## License and Authors
 
-Author:: Chris Aumann <me@chr4.org>
-Contributors:: Alexander Merkulov <sasha@merqlove.ru>
+Author: Chris Aumann <me@chr4.org>
+
+Contributors: Alexander Merkulov <sasha@merqlove.ru>
