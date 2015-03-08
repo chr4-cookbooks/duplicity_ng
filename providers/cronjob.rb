@@ -23,6 +23,7 @@ action :create do
   run_context.include_recipe 'duplicity_ng::install_boto'  if boto?(new_resource.backend)
   run_context.include_recipe 'duplicity_ng::install_ftp'   if ftp?(new_resource.backend)
   run_context.include_recipe 'duplicity_ng::install_swift' if swift?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_azure' if azure?(new_resource.backend)
 
   directory ::File.dirname(new_resource.logfile) do
     mode 00755
@@ -44,7 +45,9 @@ action :create do
               aws_access_key_id: new_resource.aws_access_key_id,
               aws_secret_access_key: new_resource.aws_secret_access_key,
               gs_access_key_id: new_resource.gs_access_key_id,
-              gs_secret_access_key: new_resource.gs_secret_access_key
+              gs_secret_access_key: new_resource.gs_secret_access_key,
+              azure_account_name: new_resource.azure_account_name,
+              azure_account_key: new_resource.azure_account_key
   end
 
   # Deploy cronjob
@@ -124,4 +127,8 @@ end
 
 def swift?(backend)
   backend.include?('swift://')
+end
+
+def azure?(backend)
+  backend.include?('azure://')
 end

@@ -35,5 +35,9 @@ class Chef
     def pip?
       node['duplicity_ng']['use_pip']
     end
+
+    def min_python_version(version)
+      Gem::Version.new(version) <= Gem::Version.new(node['python']['version'])
+    end
   end
 end

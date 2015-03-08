@@ -59,6 +59,12 @@ Uses the system package if `node['duplicity_ng']['use_pip'] = false`, otherwise 
 Helper recipe, installs `python-boto`.
 Uses the system package if `node['duplicity_ng']['use_pip'] = false`, otherwise uses pip.
 
+#### install\_azure
+
+Helper recipe, installs MS Azure SDK on Python.
+Recommended option: `default['duplicity_ng']['use_pip'] = true`
+Minimum `python` version: 2.7.0.
+
 #### install\_ftp
 
 Helpe recipe, installs `ncftp`.
@@ -121,6 +127,10 @@ duplicity_ng_cronjob 'myduplicity' do
   # In case you use Google Cloud Storage as your backend, your credentials go here
   gs_access_key_id     'MY_ACCESS_ID'
   gs_secret_access_key 'MY_SECRET'
+
+  # In case you use MS Azure Blob Storage as your backend, your credentials go here
+  azure_account_name 'MY_ACCOUNT_NAME'
+  azure_account_key  'MY_ACCOUNT_KEY'
 
   # Alternatively, you can specify your own template to use
   cookbook         'duplicity_ng'          # Cookbook to take erb template from

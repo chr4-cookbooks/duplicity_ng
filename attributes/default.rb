@@ -41,6 +41,10 @@ default['duplicity_ng']['source']['gnupg']['version'] = '0.3.2'
 default['duplicity_ng']['source']['gnupg']['url'] = "http://switch.dl.sourceforge.net/project/py-gnupg/GnuPGInterface/#{node['duplicity_ng']['source']['gnupg']['version']}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
 default['duplicity_ng']['source']['gnupg']['checksum'] = 'd4627d83446f96bd8c22f8d15db3f7c2'
 
+default['duplicity_ng']['source']['azure']['version'] = '0.9.0'
+default['duplicity_ng']['source']['azure']['url'] = "https://github.com/Azure/azure-sdk-for-python/archive/v#{node['duplicity_ng']['source']['azure']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
+default['duplicity_ng']['source']['azure']['checksum'] = 'aaeb8d7a8fa0d819caf7d6a89d592cf5dc68f21e401e216141c0567c809cd3b7'
+
 case node['platform_family']
 when 'debian'
   default['duplicity_ng']['source']['dev']['packages'] = %w(python-dev librsync-dev)
