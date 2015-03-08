@@ -24,5 +24,11 @@ export GS_ACCESS_KEY_ID="<%= @gs_access_key_id %>"
 export GS_SECRET_ACCESS_KEY="<%= @gs_secret_access_key %>"
 <% end -%>
 
+<% if @azure_account_name && @azure_account_key %>
+# Settings for MS AZURE BLOB STORAGE
+export AZURE_ACCOUNT_NAME="<%= @azure_account_name %>"
+export AZURE_ACCOUNT_KEY="<%= @azure_account_key %>"
+<% end -%>
+
 DUPLICITY_PATH="<%= @duplicity_path %>"
 DUPLICITY_ARGUMENTS=(--tempdir <%= @temp_dir %> --archive-dir <%= @archive_dir %> <%= @backend %>)
