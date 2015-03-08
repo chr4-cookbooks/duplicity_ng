@@ -24,9 +24,9 @@ default['duplicity_ng']['path'] = '/usr/bin/duplicity'
 
 # Path where duplicity configuration (credential environment variables, etc) are stored
 default['duplicity_ng']['confdir'] = value_for_platform_family(
- 'debian' => '/etc/default',
- 'rhel' => '/etc/sysconfig',
- 'default' => '/etc',
+  'debian' => '/etc/default',
+  'rhel' => '/etc/sysconfig',
+  'default' => '/etc',
 )
 
 # Set this to true to use pip to install duplicity dependencies
