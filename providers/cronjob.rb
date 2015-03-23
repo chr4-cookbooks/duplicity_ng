@@ -104,6 +104,10 @@ action :delete do
     action :delete
   end
 
+  file "#{node['duplicity_ng']['confdir']}/duplicity-#{new_resource.name}" do
+    action :delete
+  end
+
   if new_resource.configure_zabbix
     zabbix_agent_userparam "duplicity-#{new_resource.name}" do
       action :delete
