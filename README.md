@@ -64,6 +64,7 @@ Uses the system package if `node['duplicity_ng']['use_pip'] = false`, otherwise 
 Helper recipe, installs MS Azure SDK on Python.
 Recommended option: `default['duplicity_ng']['use_pip'] = true`
 Minimum `python` version: 2.7.0.
+Note: *`duplicity` works well with Azure starting from 0.7 and up versions. Use it on your own risk.*
 
 #### install\_ftp
 

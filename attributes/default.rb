@@ -33,17 +33,17 @@ default['duplicity_ng']['confdir'] = value_for_platform_family(
 default['duplicity_ng']['use_pip'] = false
 
 # Variables for installing duplicity from source
-default['duplicity_ng']['source']['checksum'] = '1d41d756638f55106f9501c3db94ccbc6568aa856ba531e07ed2cfb760b62450'
-default['duplicity_ng']['source']['version'] = '0.6.24'
-default['duplicity_ng']['source']['url'] = "https://launchpad.net/duplicity/0.6-series/#{node['duplicity_ng']['source']['version']}/+download/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
+default['duplicity_ng']['source']['checksum'] = '609462ba43275340ae4fc008ee6620265cdc2c68988caae289971dd609ed033a'
+default['duplicity_ng']['source']['version'] = '0.7.02'
+default['duplicity_ng']['source']['url'] = "https://launchpad.net/duplicity/0.7-series/#{node['duplicity_ng']['source']['version']}/+download/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
 
 default['duplicity_ng']['source']['gnupg']['version'] = '0.3.2'
 default['duplicity_ng']['source']['gnupg']['url'] = "http://switch.dl.sourceforge.net/project/py-gnupg/GnuPGInterface/#{node['duplicity_ng']['source']['gnupg']['version']}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
 default['duplicity_ng']['source']['gnupg']['checksum'] = '0ea672251e2e3f71b62fef0c01539519d500f6b338f803af6b57e67a73cca8e6'
 
-default['duplicity_ng']['source']['azure']['version'] = '0.9.0'
+default['duplicity_ng']['source']['azure']['version'] = '0.10.0'
 default['duplicity_ng']['source']['azure']['url'] = "https://github.com/Azure/azure-sdk-for-python/archive/v#{node['duplicity_ng']['source']['azure']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
-default['duplicity_ng']['source']['azure']['checksum'] = 'aaeb8d7a8fa0d819caf7d6a89d592cf5dc68f21e401e216141c0567c809cd3b7'
+default['duplicity_ng']['source']['azure']['checksum'] = '68d87bffc4a719659ecd8898df290d89ccbfd21dec2fc4e93ed79c07534680af'
 
 case node['platform_family']
 when 'debian'
