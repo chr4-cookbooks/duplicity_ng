@@ -7,10 +7,12 @@
 # The duplicity password
 export PASSPHRASE="<%= @passphrase %>"
 
+<% if @swift_username && @swift_password && @swift_authurl %>
 # Settings for Swift backend
 export SWIFT_USERNAME="<%= @swift_username %>"
 export SWIFT_PASSWORD="<%= @swift_password %>"
 export SWIFT_AUTHURL="<%= @swift_authurl %>"
+<% end -%>
 
 <% if @aws_access_key_id && @aws_secret_access_key %>
 # Settings for S3
