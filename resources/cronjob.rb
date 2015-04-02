@@ -42,6 +42,12 @@ attribute :nice,        kind_of: Integer, default: 10
 attribute :ionice,      kind_of: Integer, default: 3
 attribute :full_backup_if_older_than, kind_of: String, default: '7D'
 
+# GPG parameteres
+attribute :cipher_algo,    kind_of: String,  default: 'aes256'
+attribute :digest_algo,    kind_of: String,  default: 'sha512'
+attribute :compress_algo,  kind_of: String,  default: 'bzip2'
+attribute :compress_level, kind_of: Integer, default: 6
+
 # Swift backend parameters
 attribute :swift_username, kind_of: String, default: nil
 attribute :swift_password, kind_of: String, default: nil

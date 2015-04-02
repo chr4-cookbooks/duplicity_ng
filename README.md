@@ -133,6 +133,12 @@ duplicity_ng_cronjob 'myduplicity' do
   azure_account_name 'MY_ACCOUNT_NAME'
   azure_account_key  'MY_ACCOUNT_KEY'
 
+  # GPG options (compression and algorithms)
+  cipher_algo    'aes256'
+  digest_algo    'sha512'
+  compress_algo  'bzip2'
+  compress_level 6
+
   # Alternatively, you can specify your own template to use
   cookbook         'duplicity_ng'          # Cookbook to take erb template from
   source           'cronjob.sh.erb'     # ERB template to use

@@ -7,6 +7,9 @@
 # The duplicity password
 export PASSPHRASE="<%= @passphrase %>"
 
+# Set GPG options (algorithms and compression)
+export GPGOPT="'--compress-algo=<%= @compress_algo %> -z=<%= @compress_level %> --cipher-algo=<%= @cipher_algo %> --digest-algo=<%= @digest_algo %>'"
+
 <% if @swift_username && @swift_password && @swift_authurl %>
 # Settings for Swift backend
 export SWIFT_USERNAME="<%= @swift_username %>"

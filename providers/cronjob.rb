@@ -47,7 +47,11 @@ action :create do
               gs_access_key_id: new_resource.gs_access_key_id,
               gs_secret_access_key: new_resource.gs_secret_access_key,
               azure_account_name: new_resource.azure_account_name,
-              azure_account_key: new_resource.azure_account_key
+              azure_account_key: new_resource.azure_account_key,
+              cipher_algo: new_resource.cipher_algo,
+              digest_algo: new_resource.digest_algo,
+              compress_algo: new_resource.compress_algo,
+              compress_level: new_resource.compress_level
   end
 
   # Deploy cronjob
