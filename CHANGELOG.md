@@ -1,3 +1,10 @@
+1.2.1
+-----
+
+- Add attribute to set encryption algorithms (defaults to aes256, sha512)
+- Add attribute to set compression algorithm and level (defaults to bzip2, level 6)
+- Add support or Microsoft Azure storage
+
 1.2.0
 -----
 
