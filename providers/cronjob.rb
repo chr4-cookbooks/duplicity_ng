@@ -34,6 +34,7 @@ action :create do
     mode      00600
     source    'environment.erb'
     cookbook  'duplicity_ng'
+    sensitive true
     variables backend: new_resource.backend,
               duplicity_path: new_resource.duplicity_path,
               passphrase: new_resource.passphrase,
