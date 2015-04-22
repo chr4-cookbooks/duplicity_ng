@@ -44,7 +44,7 @@ time nice -n <%= @nice %> ionice -c <%= @ionice %> $DUPLICITY_PATH \
   --include <%= dir %> \
 <% end -%>
   --exclude '**' \
-  ${DUPLICITY_ARGUMENTS[@]} --gpg-options $GPGOPT >> <%= @logfile %> 2>&1
+  ${DUPLICITY_ARGUMENTS[@]} --gpg-options """$GPGOPT""" >> <%= @logfile %> 2>&1
 
 # Unset all passphrases
 unset PASSPHRASE
