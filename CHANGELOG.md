@@ -1,3 +1,10 @@
+1.2.2
+-----
+
+- Use `senstive true` attribute for duplicity environment files, so credentials won't end up in
+  Chef logs
+- Fix escaping issue with `--gpg-options`
+
 1.2.1
 -----
 
