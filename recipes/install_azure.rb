@@ -19,6 +19,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# Install Azure-specific packages
+node['duplicity_ng']['source']['azure']['packages'].each { |n| package n }
+
 # Install Azure library
 
 if pip? && min_python_version('2.7.0')
