@@ -38,7 +38,7 @@ default['duplicity_ng']['source']['version'] = '0.7.02'
 default['duplicity_ng']['source']['url'] = "https://launchpad.net/duplicity/0.7-series/#{node['duplicity_ng']['source']['version']}/+download/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
 
 default['duplicity_ng']['source']['gnupg']['version'] = '0.3.2'
-default['duplicity_ng']['source']['gnupg']['url'] = "http://switch.dl.sourceforge.net/project/py-gnupg/GnuPGInterface/#{node['duplicity_ng']['source']['gnupg']['version']}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
+default['duplicity_ng']['source']['gnupg']['url'] = "http://downloads.sourceforge.net/project/py-gnupg/GnuPGInterface/#{node['duplicity_ng']['source']['gnupg']['version']}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
 default['duplicity_ng']['source']['gnupg']['checksum'] = '0ea672251e2e3f71b62fef0c01539519d500f6b338f803af6b57e67a73cca8e6'
 
 default['duplicity_ng']['source']['azure']['version'] = '0.10.0'
@@ -48,10 +48,12 @@ default['duplicity_ng']['source']['azure']['checksum'] = '68d87bffc4a719659ecd88
 case node['platform_family']
 when 'debian'
   default['duplicity_ng']['source']['dev']['packages'] = %w(python-dev librsync-dev)
+  default['duplicity_ng']['source']['azure']['packages'] = %w(libffi-dev)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-gnupginterface python-paramiko)
 when 'rhel', 'fedora', 'suse'
   # Use pip by default on rhel, as the packages are outdated
   default['duplicity_ng']['use_pip'] = true
   default['duplicity_ng']['source']['dev']['packages'] = %w(python-devel librsync-devel)
+  default['duplicity_ng']['source']['azure']['packages'] = %w(libffi-devel)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-GnuPGInterface python-paramiko)
 end
