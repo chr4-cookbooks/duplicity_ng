@@ -1,3 +1,9 @@
+1.2.3
+-----
+
+- Fix path when compiling GPG from source
+- Fix dependencies for Azure users
+
 1.2.2
 -----
 
