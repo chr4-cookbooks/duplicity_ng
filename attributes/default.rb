@@ -33,8 +33,8 @@ default['duplicity_ng']['confdir'] = value_for_platform_family(
 default['duplicity_ng']['use_pip'] = false
 
 # Variables for installing duplicity from source
-default['duplicity_ng']['source']['checksum'] = '609462ba43275340ae4fc008ee6620265cdc2c68988caae289971dd609ed033a'
-default['duplicity_ng']['source']['version'] = '0.7.02'
+default['duplicity_ng']['source']['checksum'] = 'dec756ebe6cd25a6a55d9f31954fd8e07f4502063e4e148bdde4b1b3b2ad4615'
+default['duplicity_ng']['source']['version'] = '0.7.03'
 default['duplicity_ng']['source']['url'] = "https://launchpad.net/duplicity/0.7-series/#{node['duplicity_ng']['source']['version']}/+download/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
 
 default['duplicity_ng']['source']['gnupg']['version'] = '0.3.2'
