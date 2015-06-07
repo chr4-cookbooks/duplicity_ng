@@ -25,7 +25,9 @@ node['duplicity_ng']['source']['azure']['packages'].each { |n| package n }
 # Install Azure library
 
 if pip? && min_python_version('2.7.0')
-  python_pip 'azure'
+  python_pip 'azure' do
+    version node['duplicity_ng']['source']['azure']['version']
+  end
 elsif min_python_version('2.7.0')
   remote_file "#{Chef::Config[:file_cache_path]}/azure-v#{node['duplicity_ng']['source']['azure']['version']}.tar.gz" do
     source   node['duplicity_ng']['source']['azure']['url']
