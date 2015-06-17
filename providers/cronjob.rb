@@ -81,7 +81,7 @@ action :create do
   end
 
   if new_resource.configure_zabbix
-    zabbix_agent_userparam "duplicity-#{new_resource.name}" do
+    zabbix_ng_agent_userparam "duplicity-#{new_resource.name}" do
       identifier "duplicity.#{new_resource.name}.last_backup"
 
       command <<-EOS
@@ -114,7 +114,7 @@ action :delete do
   end
 
   if new_resource.configure_zabbix
-    zabbix_agent_userparam "duplicity-#{new_resource.name}" do
+    zabbix_ng_agent_userparam "duplicity-#{new_resource.name}" do
       action :delete
     end
 
