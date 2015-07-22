@@ -1,3 +1,8 @@
+1.2.4
+-----
+
+- Migrate to zabbix_ng cookbook
+
 1.2.3
 -----
 
