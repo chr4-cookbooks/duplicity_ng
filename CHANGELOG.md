@@ -1,7 +1,13 @@
+1.2.5
+-----
+
+- Prevent duplicate duplicity processes using lockfiles
+- Add `lockfile` attribute
+
 1.2.4
 -----
 
-- Migrate to zabbix_ng cookbook
+- Migrate to `zabbix_ng` cookbook
 
 1.2.3
 -----
