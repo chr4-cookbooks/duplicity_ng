@@ -7,6 +7,21 @@
 set -o nounset
 set -o errexit
 
+# Make sure only one backup is run at a time
+if [ -f "<%= @lockfile %>" ]; then
+  echo "Duplicity is already running" >> <%= @logfile %> 2>&1
+  exit 0;
+else
+  touch "<%= @lockfile %>"
+fi
+
+# Cleanup lockfile on exit
+cleanup() {
+  rm -f "<%= @lockfile %>"
+}
+trap cleanup EXIT
+
+
 # Create archive/temp directories
 mkdir -p <%= @temp_dir %> >> <%= @logfile %> 2>&1
 mkdir -p <%= @archive_dir %> >> <%= @logfile %> 2>&1

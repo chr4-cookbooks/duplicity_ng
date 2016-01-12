@@ -93,6 +93,7 @@ duplicity_ng_cronjob 'myduplicity' do
   duplicity_path   '/usr/bin/duplicity' # Path to duplicity
   configure_zabbix false                # Automatically configure zabbix user paremeters
   logfile          '/dev/null'          # Log cronjob output to this file
+  lockfile         '/tmp/mylock.lock'   # Lockfile to use (defaults to /tmp/duplicity-$name)
 
   # duplicity parameters
   backend    'ftp://server.com/folder' # Backend to use (default: nil, required!)

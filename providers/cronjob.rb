@@ -29,6 +29,9 @@ action :create do
     mode 00755
   end
 
+  # If lockfile was not provided, place it in /tmp
+  lockfile = new_resource.lockfile || "/tmp/duplicity-#{new_resource.name}"
+
   # Deploy configuration
   template "#{node['duplicity_ng']['confdir']}/duplicity-#{new_resource.name}" do
     mode      00600
@@ -66,6 +69,7 @@ action :create do
                 archive_dir: new_resource.archive_dir,
                 temp_dir: new_resource.temp_dir,
                 logfile: new_resource.logfile,
+                lockfile: lockfile,
                 include: new_resource.include,
                 exclude: new_resource.exclude,
                 full_backup_if_older_than: new_resource.full_backup_if_older_than,

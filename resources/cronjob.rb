@@ -29,6 +29,7 @@ attribute :variables,        kind_of: Hash,   default: {}
 attribute :duplicity_path,   kind_of: String, default: node['duplicity_ng']['path']
 attribute :configure_zabbix, kind_of: [TrueClass, FalseClass], default: false
 attribute :logfile,          kind_of: String, default: '/dev/null'
+attribute :lockfile,         kind_of: String, default: nil
 
 # Duplicity parameters
 attribute :backend,     kind_of: String,  required: true
