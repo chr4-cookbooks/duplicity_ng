@@ -200,7 +200,7 @@ Since version 1.1.2, you can run commands like `collection-status` conveniently.
 . /etc/sysconfig/duplicity-$jobname # on RHEL familiy
 . /etc/duplicity-$jobname           # On other families
 
-$DUPLICITY_PATH collection-status $DUPLICITY_ARGUMENTS
+$DUPLICITY_PATH collection-status "${DUPLICITY_ARGUMENTS[@]}"
 ```
 
 
