@@ -18,6 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+use_inline_resources
+
 action :create do
   # Check for dependencies
   run_context.include_recipe 'duplicity_ng::install_boto'  if boto?(new_resource.backend)
