@@ -91,12 +91,14 @@ action :create do
       identifier "duplicity.#{new_resource.name}.last_backup"
 
       command <<-EOS
-        expr $(date "+%s") - $(date --date "$( \
-          sudo duplicity collection-status \
-            --archive-dir #{new_resource.archive_dir} \
-            --tempdir #{new_resource.temp_dir} #{new_resource.backend} \
-          |tail -n3 |head -n1 |sed -r 's/^\\s+\\S+\\s+(\\w+\\s+\\w+\\s+\\w+\\s+\\S+\\s+\\w+).*$/\\1/' \
-        )" "+%s")
+        if which duplicity &> /dev/null; then \
+          expr $(date "+%s") - $(date --date "$( \
+            sudo duplicity collection-status \
+              --archive-dir #{new_resource.archive_dir} \
+              --tempdir #{new_resource.temp_dir} #{new_resource.backend} \
+            |tail -n3 |head -n1 |sed -r 's/^\\s+\\S+\\s+(\\w+\\s+\\w+\\s+\\w+\\s+\\S+\\s+\\w+).*$/\\1/' \
+          )" "+%s")\
+        fi
       EOS
     end
 
