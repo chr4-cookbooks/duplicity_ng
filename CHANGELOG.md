@@ -1,3 +1,9 @@
+1.2.6
+-----
+
+- Install `python-paramiko` packages when installing from source
+- Check whether duplicity is installed in zabbix-check
+
 1.2.5
 -----
 
