@@ -1,13 +1,18 @@
 source 'https://rubygems.org'
 
-group :development do
-  gem 'chef-zero'
-  gem 'rubocop'
-  gem 'berkshelf'
+group :lint do
   gem 'foodcritic'
+  gem 'rubocop'
 end
 
-group :integration do
-  gem 'test-kitchen'
-  gem 'kitchen-vagrant'
+group :unit do
+  gem 'berkshelf'
+end
+
+group :kitchen_common do
+  gem 'test-kitchen', '~> 1.2'
+end
+
+group :kitchen_vagrant do
+  gem 'kitchen-vagrant', '~> 0.11'
 end
