@@ -134,6 +134,10 @@ duplicity_ng_cronjob 'myduplicity' do
   azure_account_name 'MY_ACCOUNT_NAME'
   azure_account_key  'MY_ACCOUNT_KEY'
 
+  # In case you use FTP/SFTP as your backend, your credentials go here
+  # Nb. username goes in the url like sftp://username@sftp.mycompany.com/
+  ftp_password 'MY_PASSWORD'
+
   # GPG options (compression and algorithms)
   cipher_algo    'aes256'
   digest_algo    'sha512'

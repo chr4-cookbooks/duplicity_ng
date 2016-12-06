@@ -66,6 +66,9 @@ attribute :gs_secret_access_key, kind_of: String, default: nil
 attribute :azure_account_name, kind_of: String, default: nil
 attribute :azure_account_key,  kind_of: String, default: nil
 
+# FTP/SFTP backend parameters
+attribute :ftp_password, kind_of: String, default: nil
+
 # Shell scripts that will be appended at the beginning/end of the cronjob
 attribute :exec_pre,    kind_of: [String, Array], default: []
 attribute :exec_before, kind_of: [String, Array], default: []
