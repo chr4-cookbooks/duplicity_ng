@@ -22,7 +22,7 @@ use_inline_resources
 
 action :create do
   template '/etc/boto.cfg' do
-    mode     00640
+    mode     0o640
     source   new_resource.source
     cookbook new_resource.cookbook
 

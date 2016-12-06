@@ -28,7 +28,7 @@ action :create do
   run_context.include_recipe 'duplicity_ng::install_azure' if azure?(new_resource.backend)
 
   directory ::File.dirname(new_resource.logfile) do
-    mode 00755
+    mode 0o755
   end
 
   # If lockfile was not provided, place it in /tmp
@@ -36,7 +36,7 @@ action :create do
 
   # Deploy configuration
   template "#{node['duplicity_ng']['confdir']}/duplicity-#{new_resource.name}" do
-    mode      00600
+    mode      0o600
     source    'environment.erb'
     cookbook  'duplicity_ng'
     sensitive true
@@ -63,7 +63,7 @@ action :create do
 
   # Deploy cronjob
   template "/etc/cron.#{new_resource.interval}/duplicity-#{new_resource.name}" do
-    mode     00750
+    mode     0o750
     source   new_resource.source
     cookbook new_resource.cookbook
 
