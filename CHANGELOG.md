@@ -1,3 +1,8 @@
+1.3.0
+-----
+
+- Add support for the `FTP_PASSWORD` environment variable (Thanks, Tom Ward)
+
 1.2.6
 -----
 
