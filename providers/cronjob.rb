@@ -54,6 +54,7 @@ action :create do
               gs_secret_access_key: new_resource.gs_secret_access_key,
               azure_account_name: new_resource.azure_account_name,
               azure_account_key: new_resource.azure_account_key,
+              ftp_password: new_resource.ftp_password,
               cipher_algo: new_resource.cipher_algo,
               digest_algo: new_resource.digest_algo,
               compress_algo: new_resource.compress_algo,
