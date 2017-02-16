@@ -1,3 +1,8 @@
+1.4.0
+-----
+
+- Automatically install `python-paramiko` when using SSH backends
+
 1.3.0
 -----
 
