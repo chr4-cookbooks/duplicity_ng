@@ -22,10 +22,11 @@ use_inline_resources
 
 action :create do
   # Check for dependencies
-  run_context.include_recipe 'duplicity_ng::install_boto'  if boto?(new_resource.backend)
-  run_context.include_recipe 'duplicity_ng::install_ftp'   if ftp?(new_resource.backend)
-  run_context.include_recipe 'duplicity_ng::install_swift' if swift?(new_resource.backend)
-  run_context.include_recipe 'duplicity_ng::install_azure' if azure?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_paramiko' if ssh?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_boto'     if boto?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_ftp'      if ftp?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_swift'    if swift?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_azure'    if azure?(new_resource.backend)
 
   directory ::File.dirname(new_resource.logfile) do
     mode 0o755
@@ -149,4 +150,8 @@ end
 
 def azure?(backend)
   backend.include?('azure://')
+end
+
+def ssh?(backend)
+  backend.include?('scp://') || backend.include?('sftp://')
 end

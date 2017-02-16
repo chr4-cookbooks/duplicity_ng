@@ -54,6 +54,11 @@ The providers run them in case they are required.
 Helper recipe, installs `python-swiftclient`.
 Uses the system package if `node['duplicity_ng']['use_pip'] = false`, otherwise uses pip.
 
+#### install\_paramiko
+
+Helper recipe, installs `python-paramiko`.
+Uses the system package if `node['duplicity_ng']['use_pip'] = false`, otherwise uses pip.
+
 #### install\_boto
 
 Helper recipe, installs `python-boto`.
