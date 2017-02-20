@@ -1,3 +1,8 @@
+1.5.0
+-----
+
+- Install lftp when using `ftp://` backend. Duplicity changed the default backend from ncftp to lftp
+
 1.4.0
 -----
 
