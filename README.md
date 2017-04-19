@@ -10,6 +10,8 @@ Tested on Ubuntu and CentOS.
 
 Note: *On RHEL (CentOS) 5.x, make sure you have python, python::package or python::source in your run_list or include them in your wrapper cookbook. Otherwise the process may fail.*
 
+Warning: As of now, this cookook is not compatible to Chef-13. [Pull-Requests](https://github.com/chr4-cookbooks/duplicity_ng/pull/) welcome!
+
 ## Usage
 
 ### Attributes
