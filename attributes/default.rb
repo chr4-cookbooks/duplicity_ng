@@ -33,13 +33,13 @@ default['duplicity_ng']['confdir'] = value_for_platform_family(
 default['duplicity_ng']['use_pip'] = false
 
 # Variables for installing duplicity from source
-default['duplicity_ng']['source']['checksum'] = 'dec756ebe6cd25a6a55d9f31954fd8e07f4502063e4e148bdde4b1b3b2ad4615'
-default['duplicity_ng']['source']['version'] = '0.7.03'
+# default['duplicity_ng']['source']['checksum'] = 'dec756ebe6cd25a6a55d9f31954fd8e07f4502063e4e148bdde4b1b3b2ad4615'
+default['duplicity_ng']['source']['version'] = '0.7.10'
 default['duplicity_ng']['source']['url'] = "https://launchpad.net/duplicity/0.7-series/#{node['duplicity_ng']['source']['version']}/+download/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
 
 default['duplicity_ng']['source']['gnupg']['version'] = '0.3.2'
 default['duplicity_ng']['source']['gnupg']['url'] = "http://downloads.sourceforge.net/project/py-gnupg/GnuPGInterface/#{node['duplicity_ng']['source']['gnupg']['version']}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
-default['duplicity_ng']['source']['gnupg']['checksum'] = '0ea672251e2e3f71b62fef0c01539519d500f6b338f803af6b57e67a73cca8e6'
+# default['duplicity_ng']['source']['gnupg']['checksum'] = '0ea672251e2e3f71b62fef0c01539519d500f6b338f803af6b57e67a73cca8e6'
 
 default['duplicity_ng']['source']['azure']['version'] = '0.10.0'
 default['duplicity_ng']['source']['azure']['url'] = "https://github.com/Azure/azure-sdk-for-python/archive/v#{node['duplicity_ng']['source']['azure']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
