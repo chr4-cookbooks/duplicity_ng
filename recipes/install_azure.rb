@@ -20,7 +20,9 @@
 #
 
 # Install Azure-specific packages
-node['duplicity_ng']['source']['azure']['packages'].each { |n| package n }
+package node['duplicity_ng']['source']['azure']['packages'] do
+  action :install
+end
 
 # Install Azure library
 

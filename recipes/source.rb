@@ -46,8 +46,8 @@ if pip?
     python python_bin
   end
 else
-  node['duplicity_ng']['source']['python']['packages'].each do |name|
-    package name
+  package node['duplicity_ng']['source']['python']['packages'] do
+    action :install
   end
 
   remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
