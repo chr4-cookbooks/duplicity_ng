@@ -22,7 +22,7 @@
 # Install Swift client
 
 if pip?
-  python_pip 'python-swiftclient'
+  python_package 'python-swiftclient'
 else
   package 'python-swiftclient'
 end

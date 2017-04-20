@@ -22,7 +22,7 @@
 # Install Boto library
 
 if pip?
-  python_pip 'boto'
+  python_package 'boto'
 else
   package 'python-boto'
 end

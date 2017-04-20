@@ -25,7 +25,7 @@ node['duplicity_ng']['source']['azure']['packages'].each { |n| package n }
 # Install Azure library
 
 if pip? && min_python_version('2.7.0')
-  python_pip 'azure' do
+  python_package 'azure' do
     version node['duplicity_ng']['source']['azure']['version']
   end
 elsif min_python_version('2.7.0')
