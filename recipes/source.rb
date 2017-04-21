@@ -28,9 +28,7 @@ if pip?
     action :install
   end
 
-  python_bin = 'system'
-
-  python_runtime python_bin do
+  python_runtime 'system' do
     provider :system
     version '2'
   end
@@ -42,9 +40,7 @@ if pip?
     mode 0o0644
   end
 
-  pip_requirements "#{Chef::Config[:file_cache_path]}/duplicity_requirements.txt" do
-    python python_bin
-  end
+  pip_requirements "#{Chef::Config[:file_cache_path]}/duplicity_requirements.txt"
 else
   package node['duplicity_ng']['source']['python']['packages'] do
     action :install
@@ -62,7 +58,7 @@ else
     code <<-EOH
       tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz
       cd duplicity-#{node['duplicity_ng']['source']['version']}
-      #{python_bin} setup.py install
+      python setup.py install
     EOH
     action :nothing
   end

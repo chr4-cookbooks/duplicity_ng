@@ -45,7 +45,6 @@ suites:
 
   - name: install_source_pip
     run_list:
-    - recipe[python::pip]
     - recipe[minitest-handler]
     - recipe[duplicity_ng::source]
     attributes:
