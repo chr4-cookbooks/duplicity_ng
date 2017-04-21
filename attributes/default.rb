@@ -47,13 +47,13 @@ default['duplicity_ng']['source']['azure']['checksum'] = '68d87bffc4a719659ecd88
 
 case node['platform_family']
 when 'debian'
-  default['duplicity_ng']['source']['dev']['packages'] = %w(python-dev python-paramiko librsync-dev)
+  default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-dev libssl-dev)
   default['duplicity_ng']['source']['azure']['packages'] = %w(libffi-dev)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-gnupginterface)
 when 'rhel', 'fedora', 'suse'
   # Use pip by default on rhel, as the packages are outdated
   default['duplicity_ng']['use_pip'] = true
-  default['duplicity_ng']['source']['dev']['packages'] = %w(python-devel python-paramiko librsync-devel)
+  default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-devel openssl-devel)
   default['duplicity_ng']['source']['azure']['packages'] = %w(libffi-devel)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-GnuPGInterface)
 end

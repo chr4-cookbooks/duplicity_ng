@@ -22,17 +22,18 @@
 # Install build tools
 include_recipe 'build-essential'
 
+# Install duplicity, and backend-specific packages
+package node['duplicity_ng']['source']['dev']['packages'] do
+  action :install
+end
+
+python_runtime 'system' do
+  provider :system
+  version '2'
+  options dev_package: true
+end
+
 if pip?
-  # Install duplicity, and backend-specific packages
-  package node['duplicity_ng']['source']['dev']['packages'] do
-    action :install
-  end
-
-  python_runtime 'system' do
-    provider :system
-    version '2'
-  end
-
   template "#{Chef::Config[:file_cache_path]}/duplicity_requirements.txt" do
     source 'duplicity_requirements.txt.erb'
     owner 'root'
