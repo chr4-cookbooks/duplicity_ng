@@ -75,9 +75,12 @@ Note: *`duplicity` works well with Azure starting from 0.7 and up versions. Use 
 
 #### install\_ftp
 
-Helpe recipe, installs `ncftp`.
+Helper recipe, installs `ncftp`.
 
+#### install\_par2
 
+Helper recipe, installs `par2` for the par2 wrapper backend.
+Uses the system package if `node['duplicity_ng']['use_pip'] = false`, otherwise uses pip.
 
 ### Providers
 

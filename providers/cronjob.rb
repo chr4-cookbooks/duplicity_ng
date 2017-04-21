@@ -27,6 +27,7 @@ action :create do
   run_context.include_recipe 'duplicity_ng::install_ftp'      if ftp?(new_resource.backend)
   run_context.include_recipe 'duplicity_ng::install_swift'    if swift?(new_resource.backend)
   run_context.include_recipe 'duplicity_ng::install_azure'    if azure?(new_resource.backend)
+  run_context.include_recipe 'duplicity_ng::install_par2'     if par2?(new_resource.backend)
 
   directory ::File.dirname(new_resource.logfile) do
     mode 0o755
@@ -154,4 +155,8 @@ end
 
 def ssh?(backend)
   backend.include?('scp://') || backend.include?('sftp://')
+end
+
+def par2?(backend)
+  backend.include?('par2+')
 end

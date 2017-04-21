@@ -50,10 +50,14 @@ when 'debian'
   default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-dev libssl-dev)
   default['duplicity_ng']['source']['azure']['packages'] = %w(libffi-dev)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-gnupginterface)
+  default['duplicity_ng']['source']['par2']['packages'] = %w(par2)
+  default['duplicity_ng']['source']['pexpect']['packages'] = %w(python-pexpect)
 when 'rhel', 'fedora', 'suse'
   # Use pip by default on rhel, as the packages are outdated
   default['duplicity_ng']['use_pip'] = true
   default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-devel openssl-devel)
   default['duplicity_ng']['source']['azure']['packages'] = %w(libffi-devel)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-GnuPGInterface)
+  default['duplicity_ng']['source']['par2']['packages'] = %w(par2cmdline)
+  default['duplicity_ng']['source']['pexpect']['packages'] = %w(pexpect)
 end
