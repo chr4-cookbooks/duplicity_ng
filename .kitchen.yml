@@ -12,9 +12,7 @@ platforms:
 - name: centos-6.8
   run_list: recipe[yum-epel]
 - name: centos-5.11
-  run_list:
-  - recipe[yum-epel]
-  - recipe[python::package]
+  run_list: recipe[yum-epel]
 - name: ubuntu-16.04
   run_list: recipe[apt]
 - name: ubuntu-14.04
@@ -39,6 +37,22 @@ suites:
     - recipe[duplicity_ng::install_paramiko]
     - recipe[duplicity_ng::install_par2]
     - recipe[duplicity_ng::install_swift]
+    attributes:
+      duplicity_ng:
+        use_pip: false
+  - name: install_package_pip
+    run_list:
+    - recipe[minitest-handler]
+    - recipe[duplicity_ng::package]
+    - recipe[duplicity_ng::install_azure]
+    - recipe[duplicity_ng::install_boto]
+    - recipe[duplicity_ng::install_ftp]
+    - recipe[duplicity_ng::install_paramiko]
+    - recipe[duplicity_ng::install_par2]
+    - recipe[duplicity_ng::install_swift]
+    attributes:
+      duplicity_ng:
+        use_pip: true
   - name: install_source
     run_list:
     - recipe[minitest-handler]
