@@ -33,21 +33,38 @@ suites:
     run_list:
     - recipe[minitest-handler]
     - recipe[duplicity_ng::package]
-
+    - recipe[duplicity_ng::install_azure]
+    - recipe[duplicity_ng::install_boto]
+    - recipe[duplicity_ng::install_ftp]
+    - recipe[duplicity_ng::install_paramiko]
+    - recipe[duplicity_ng::install_par2]
+    - recipe[duplicity_ng::install_swift]
   - name: install_source
     run_list:
     - recipe[minitest-handler]
     - recipe[duplicity_ng::source]
+    - recipe[duplicity_ng::install_azure]
+    - recipe[duplicity_ng::install_boto]
+    - recipe[duplicity_ng::install_ftp]
+    - recipe[duplicity_ng::install_paramiko]
+    - recipe[duplicity_ng::install_par2]
+    - recipe[duplicity_ng::install_swift]
     attributes:
       duplicity_ng:
-        path: /usr/bin/duplicity
+        path: duplicity
         use_pip: false
 
   - name: install_source_pip
     run_list:
     - recipe[minitest-handler]
     - recipe[duplicity_ng::source]
+    - recipe[duplicity_ng::install_azure]
+    - recipe[duplicity_ng::install_boto]
+    - recipe[duplicity_ng::install_ftp]
+    - recipe[duplicity_ng::install_paramiko]
+    - recipe[duplicity_ng::install_par2]
+    - recipe[duplicity_ng::install_swift]
     attributes:
       duplicity_ng:
-        path: /usr/bin/duplicity
+        path: duplicity
         use_pip: true
