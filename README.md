@@ -232,4 +232,4 @@ $DUPLICITY_PATH collection-status "${DUPLICITY_ARGUMENTS[@]}"
 
 Author: Chris Aumann <me@chr4.org>
 
-Contributors: Alexander Merkulov <sasha@merqlove.ru>
+Contributors: Alexander Merkulov <sasha@merqlove.ru>, Gavin Reynolds <g.reynolds@src.gla.ac.uk>
