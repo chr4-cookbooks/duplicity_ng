@@ -23,47 +23,44 @@
 include_recipe 'build-essential'
 
 # Install duplicity, and backend-specific packages
-node['duplicity_ng']['source']['dev']['packages'].each do |name|
-  package name
+package node['duplicity_ng']['source']['dev']['packages'] do
+  action :install
 end
 
-python_bin = 'python'
+python_runtime 'system' do
+  provider :system
+  version '2'
+  options dev_package: true
+end
 
 if pip?
-  python_pip 'lockfile'
-  python_pip 'setuptools'
-  gpg_source_file = "#{Chef::Config[:file_cache_path]}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
-  remote_file gpg_source_file do
-    source   node['duplicity_ng']['source']['gnupg']['url']
-    checksum node['duplicity_ng']['source']['gnupg']['checksum']
-    action   :create
-    notifies :install, 'python_pip[install_gnupginterface]', :immediately
+  template "#{Chef::Config[:file_cache_path]}/duplicity_requirements.txt" do
+    source 'duplicity_requirements.txt.erb'
+    owner 'root'
+    group 'root'
+    mode 0o0644
   end
-  python_pip 'install_gnupginterface' do
-    package_name gpg_source_file
-    action       :nothing
-  end
-  python_pip 'paramiko'
-  python_bin = node['python']['binary']
+
+  pip_requirements "#{Chef::Config[:file_cache_path]}/duplicity_requirements.txt"
 else
-  node['duplicity_ng']['source']['python']['packages'].each do |name|
-    package name
+  package node['duplicity_ng']['source']['python']['packages'] do
+    action :install
   end
-end
 
-remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
-  source   node['duplicity_ng']['source']['url']
-  checksum node['duplicity_ng']['source']['checksum']
-  action   :create
-  notifies :run, 'bash[compile_duplicity_from_source]', :immediately
-end
+  remote_file "#{Chef::Config[:file_cache_path]}/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" do
+    source   node['duplicity_ng']['source']['url']
+    checksum node['duplicity_ng']['source']['checksum']
+    action   :create
+    notifies :run, 'bash[compile_duplicity_from_source]', :immediately
+  end
 
-bash 'compile_duplicity_from_source' do
-  cwd Chef::Config[:file_cache_path]
-  code <<-EOH
-    tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz
-    cd duplicity-#{node['duplicity_ng']['source']['version']}
-    #{python_bin} setup.py install
-  EOH
-  action :nothing
+  bash 'compile_duplicity_from_source' do
+    cwd Chef::Config[:file_cache_path]
+    code <<-EOH
+      tar -xvf duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz
+      cd duplicity-#{node['duplicity_ng']['source']['version']}
+      python setup.py install
+    EOH
+    action :nothing
+  end
 end

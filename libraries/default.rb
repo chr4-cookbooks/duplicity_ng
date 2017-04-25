@@ -35,9 +35,14 @@ class Chef
     def pip?
       node['duplicity_ng']['use_pip']
     end
-
+    
+    #
+    # Determine whether the Ohai detected python satisfies specified version requirement.
+    #
+    # @return [Boolean]
+    #
     def min_python_version(version)
-      Gem::Version.new(version) <= Gem::Version.new(node['python']['version'])
+      Gem::Version.new(version) <= Gem::Version.new(node['languages']['python']['version'])
     end
   end
 end

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: duplicity_ng
-# Recipe:: install_swift
+# Recipe:: install_par2
 #
 # Copyright (C) 2014 Alexander Merkulov
 # Copyright (C) 2014 Chris Aumann
@@ -19,10 +19,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Install Swift client
+# Install Par2 library for Par2 Wrapper Backend
+package node['duplicity_ng']['source']['par2']['packages']
 
 if pip?
-  python_package 'python-swiftclient'
+  python_package 'pexpect'
 else
-  package 'python-swiftclient'
+  package node['duplicity_ng']['source']['pexpect']['packages']
 end

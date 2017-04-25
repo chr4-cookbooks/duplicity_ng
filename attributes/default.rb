@@ -33,8 +33,8 @@ default['duplicity_ng']['confdir'] = value_for_platform_family(
 default['duplicity_ng']['use_pip'] = false
 
 # Variables for installing duplicity from source
-default['duplicity_ng']['source']['checksum'] = 'dec756ebe6cd25a6a55d9f31954fd8e07f4502063e4e148bdde4b1b3b2ad4615'
-default['duplicity_ng']['source']['version'] = '0.7.03'
+default['duplicity_ng']['source']['checksum'] = '485fef15526d163c061e00ec08de216cf7d652e67d41de5dc3bed9fb42214842'
+default['duplicity_ng']['source']['version'] = '0.7.10'
 default['duplicity_ng']['source']['url'] = "https://launchpad.net/duplicity/0.7-series/#{node['duplicity_ng']['source']['version']}/+download/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz" # rubocop:disable Metrics/LineLength
 
 default['duplicity_ng']['source']['gnupg']['version'] = '0.3.2'
@@ -47,13 +47,17 @@ default['duplicity_ng']['source']['azure']['checksum'] = '68d87bffc4a719659ecd88
 
 case node['platform_family']
 when 'debian'
-  default['duplicity_ng']['source']['dev']['packages'] = %w(python-dev python-paramiko librsync-dev)
+  default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-dev libssl-dev)
   default['duplicity_ng']['source']['azure']['packages'] = %w(libffi-dev)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-gnupginterface)
+  default['duplicity_ng']['source']['par2']['packages'] = %w(par2)
+  default['duplicity_ng']['source']['pexpect']['packages'] = %w(python-pexpect)
 when 'rhel', 'fedora', 'suse'
   # Use pip by default on rhel, as the packages are outdated
   default['duplicity_ng']['use_pip'] = true
-  default['duplicity_ng']['source']['dev']['packages'] = %w(python-devel python-paramiko librsync-devel)
+  default['duplicity_ng']['source']['dev']['packages'] = %w(librsync-devel openssl-devel)
   default['duplicity_ng']['source']['azure']['packages'] = %w(libffi-devel)
   default['duplicity_ng']['source']['python']['packages'] = %w(python-lockfile python-setuptools python-GnuPGInterface)
+  default['duplicity_ng']['source']['par2']['packages'] = %w(par2cmdline)
+  default['duplicity_ng']['source']['pexpect']['packages'] = %w(pexpect)
 end

@@ -7,6 +7,6 @@ long_description 'Installs/Configures duplicity_ng'
 source_url       'https://github.com/chr4-cookbooks/duplicity_ng' if respond_to?(:source_url)
 issues_url       'https://github.com/chr4-cookbooks/duplicity_ng/issues' if respond_to?(:issues_url)
 version          '1.5.0'
-depends          'python'
+depends          'poise-python'
 depends          'build-essential'
 depends          'zabbix_ng'

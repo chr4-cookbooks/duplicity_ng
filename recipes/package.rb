@@ -18,4 +18,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# for package + pip addons install
+if pip?
+  python_runtime 'system' do
+    provider :system
+    version '2'
+    options dev_package: true
+  end
+
+  package node['duplicity_ng']['source']['dev']['packages'] do
+    action :install
+  end
+end
+
 package 'duplicity'

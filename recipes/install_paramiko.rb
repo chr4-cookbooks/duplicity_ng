@@ -20,7 +20,7 @@
 
 # Install Paramiko library
 if pip?
-  python_pip 'paramiko'
+  python_package 'paramiko'
 else
   package 'python-paramiko'
 end
