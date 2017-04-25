@@ -35,7 +35,7 @@ class Chef
     def pip?
       node['duplicity_ng']['use_pip']
     end
-    
+
     #
     # Determine whether the Ohai detected python satisfies specified version requirement.
     #

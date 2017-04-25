@@ -19,7 +19,7 @@
 #
 
 module Helpers
-  module TestHelper # rubocop:disable Style/Documentation
+  module TestHelper
     require 'chef/mixin/shell_out'
     include Chef::Mixin::ShellOut
     include MiniTest::Chef::Assertions
