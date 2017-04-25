@@ -4,5 +4,5 @@ cache: bundler
 rvm:
 - 2.3.1
 script:
-  - bundle exec rubocop
+  - bundle exec cookstyle
   - bundle exec foodcritic -f any .
