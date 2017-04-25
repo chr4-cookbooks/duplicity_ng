@@ -1,3 +1,8 @@
+2.0.0
+-----
+
+- Migrate to [poise-python](https://github.com/poise/poise-python), as the used python-cookbook is deprecated.
+
 1.5.0
 -----
 
