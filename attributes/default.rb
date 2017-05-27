@@ -41,9 +41,10 @@ default['duplicity_ng']['source']['gnupg']['version'] = '0.3.2'
 default['duplicity_ng']['source']['gnupg']['url'] = "http://downloads.sourceforge.net/project/py-gnupg/GnuPGInterface/#{node['duplicity_ng']['source']['gnupg']['version']}/GnuPGInterface-#{node['duplicity_ng']['source']['gnupg']['version']}.tar.gz"
 default['duplicity_ng']['source']['gnupg']['checksum'] = '0ea672251e2e3f71b62fef0c01539519d500f6b338f803af6b57e67a73cca8e6'
 
-default['duplicity_ng']['source']['azure']['version'] = '0.10.0'
-default['duplicity_ng']['source']['azure']['url'] = "https://github.com/Azure/azure-sdk-for-python/archive/v#{node['duplicity_ng']['source']['azure']['version']}.tar.gz"
-default['duplicity_ng']['source']['azure']['checksum'] = '68d87bffc4a719659ecd8898df290d89ccbfd21dec2fc4e93ed79c07534680af'
+default['duplicity_ng']['source']['azure']['package'] = 'azure-storage'
+default['duplicity_ng']['source']['azure']['version'] = '0.34.2'
+default['duplicity_ng']['source']['azure']['url'] = "https://github.com/Azure/azure-storage-python/archive/v#{node['duplicity_ng']['source']['azure']['version']}.tar.gz"
+default['duplicity_ng']['source']['azure']['checksum'] = 'be427064cc7db99629c76703c2cf2bc5e0be9e926a0d2f291d19aaccd7a6243b'
 
 case node['platform_family']
 when 'debian'
