@@ -33,8 +33,8 @@ default['duplicity_ng']['confdir'] = value_for_platform_family(
 default['duplicity_ng']['use_pip'] = false
 
 # Variables for installing duplicity from source
-default['duplicity_ng']['source']['checksum'] = '485fef15526d163c061e00ec08de216cf7d652e67d41de5dc3bed9fb42214842'
-default['duplicity_ng']['source']['version'] = '0.7.10'
+default['duplicity_ng']['source']['checksum'] = '11cbad44a90891af1bf9e294260ba7c21a1660ccd3ab2c6e736ba74ac5cf0fe6'
+default['duplicity_ng']['source']['version'] = '0.7.12'
 default['duplicity_ng']['source']['url'] = "https://launchpad.net/duplicity/0.7-series/#{node['duplicity_ng']['source']['version']}/+download/duplicity-#{node['duplicity_ng']['source']['version']}.tar.gz"
 
 default['duplicity_ng']['source']['gnupg']['version'] = '0.3.2'
