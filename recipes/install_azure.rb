@@ -27,7 +27,7 @@ end
 # Install Azure library
 
 if pip? && min_python_version('2.7.0')
-  python_package 'azure' do
+  python_package node['duplicity_ng']['source']['azure']['package'] do
     version node['duplicity_ng']['source']['azure']['version']
   end
 elsif min_python_version('2.7.0')
