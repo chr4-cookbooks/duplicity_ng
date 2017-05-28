@@ -1,3 +1,9 @@
+2.1.0
+-----
+
+- Update azure SDK to v0.34.2
+- Update duplicity version when building from source to v0.7.12
+
 2.0.0
 -----
 
